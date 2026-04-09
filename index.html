@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Laser Mastery Lab</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@18.2.0",
+    "react-dom": "https://esm.sh/react-dom@18.2.0",
+    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+    "react/": "https://esm.sh/react@18.2.0/",
+    "react-dom/": "https://esm.sh/react-dom@18.2.0/",
+    "recharts": "https://esm.sh/recharts@2.12.7",
+    "@google/genai": "https://esm.sh/@google/genai@^1.41.0"
+  }
+}
+</script>
+    <style>
+      body { font-family: 'Inter', sans-serif; background-color: #020617; margin: 0; color: #f1f5f9; overflow-x: hidden; }
+      
+      /* Reset range input to show our custom track and thumb */
+      input[type=range] {
+        -webkit-appearance: none;
+        width: 100%;
+        background: transparent;
+        margin: 10px 0;
+      }
+      input[type=range]:focus {
+        outline: none;
+      }
+
+      /* Track Styling */
+      input[type=range]::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 8px;
+        cursor: pointer;
+        background: #1e293b; /* slate-800 */
+        border-radius: 10px;
+        border: 1px solid #475569; /* slate-600 */
+      }
+      input[type=range]::-moz-range-track {
+        width: 100%;
+        height: 8px;
+        cursor: pointer;
+        background: #1e293b;
+        border-radius: 10px;
+        border: 1px solid #475569;
+      }
+
+      /* Thumb Styling */
+      input[type=range]::-webkit-slider-thumb {
+        height: 24px;
+        width: 24px;
+        border-radius: 50%;
+        background: #f43f5e; /* rose-500 */
+        cursor: pointer;
+        -webkit-appearance: none;
+        margin-top: -9px; /* Centers thumb on track */
+        box-shadow: 0 0 15px rgba(244, 63, 94, 0.6), inset 0 0 5px white;
+        border: 2px solid white;
+        transition: transform 0.1s ease;
+      }
+      input[type=range]::-webkit-slider-thumb:active {
+        transform: scale(1.2);
+      }
+      input[type=range]::-moz-range-thumb {
+        height: 24px;
+        width: 24px;
+        border-radius: 50%;
+        background: #f43f5e;
+        cursor: pointer;
+        box-shadow: 0 0 15px rgba(244, 63, 94, 0.6);
+        border: 2px solid white;
+      }
+
+      @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+      .animate-stage { animation: fadeIn 0.4s ease-out forwards; }
+      
+      ::-webkit-scrollbar { width: 6px; }
+      ::-webkit-scrollbar-track { background: transparent; }
+      ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+
+      /* Custom animations for cavity */
+      @keyframes laserBounce {
+        0%, 100% { left: 5%; }
+        50% { left: 95%; }
+      }
+      .animate-laser-bounce {
+        animation: laserBounce 2s linear infinite;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
