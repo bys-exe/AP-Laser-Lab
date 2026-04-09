@@ -1,7 +1,11 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const IntroStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
+  useEffect(() => {
+    console.log('[STAGE] IntroStage.tsx: Component mounted.');
+  }, []);
+
   return (
     <div className="space-y-12">
       <header className="space-y-4">

@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { LabStage } from './types';
 import IntroStage from './components/IntroStage';
 import TheoryNotes from './components/TheoryNotes';
@@ -12,6 +12,11 @@ import VivaStage from './components/VivaStage';
 
 const App: React.FC = () => {
   const [currentStage, setCurrentStage] = useState<LabStage>(LabStage.INTRODUCTION);
+
+  useEffect(() => {
+    console.log('[APP] App.tsx: Component mounted.');
+    console.log('[APP] App.tsx: Current Stage:', currentStage);
+  }, [currentStage]);
 
   const stages = [
     { id: LabStage.INTRODUCTION, label: '01 Fundamentals' },
