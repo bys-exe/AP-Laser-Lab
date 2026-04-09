@@ -52,78 +52,93 @@ const ModuleQuiz: React.FC = () => {
 
   if (showResult) {
     return (
-      <div className="max-w-2xl mx-auto bg-white p-12 rounded-3xl shadow-2xl text-center space-y-6">
-        <div className="text-6xl">🎓</div>
-        <h2 className="text-3xl font-bold text-gray-800">Viva Voce Completed!</h2>
-        <p className="text-xl text-gray-600">You scored <span className="font-bold text-blue-600">{score}</span> out of {QUESTIONS.length}</p>
-        <div className="w-full bg-gray-100 rounded-full h-4 overflow-hidden">
-          <div 
-            className="bg-blue-600 h-full transition-all duration-1000" 
-            style={{ width: `${(score / QUESTIONS.length) * 100}%` }}
-          />
+      <div className="max-w-2xl mx-auto bg-zinc-900 border border-zinc-800 p-16 text-center space-y-10">
+        <div className="text-7xl">🏆</div>
+        <div className="space-y-2">
+          <h2 className="text-3xl font-bold text-white uppercase tracking-tight">Assessment Complete</h2>
+          <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Quantum Proficiency Level</p>
         </div>
+        
+        <div className="space-y-6">
+          <p className="text-xl text-zinc-400 font-bold">
+            You achieved <span className="text-cyan-500 font-bold">{score}</span> / {QUESTIONS.length}
+          </p>
+          <div className="w-full bg-black h-2 border border-zinc-800">
+            <div 
+              className="bg-cyan-500 h-full"
+              style={{ width: `${(score / QUESTIONS.length) * 100}%` }}
+            />
+          </div>
+        </div>
+
         <button 
           onClick={restart}
-          className="bg-blue-600 text-white px-8 py-3 rounded-full font-bold hover:bg-blue-700 transition-colors"
+          className="bg-cyan-500 text-black px-12 py-4 text-[10px] font-bold uppercase tracking-widest hover:bg-cyan-400"
         >
-          Try Again
+          Re-Initialize Module
         </button>
       </div>
     );
   }
 
   return (
-    <div className="max-w-2xl mx-auto space-y-8 animate-fadeIn">
-      <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-        <div className="flex justify-between text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">
-           <span>Viva Mode</span>
-           <span>Question {currentIdx + 1} of {QUESTIONS.length}</span>
+    <div className="max-w-2xl mx-auto space-y-10">
+      <header className="flex justify-between items-center bg-zinc-900 p-8 border border-zinc-800">
+        <div className="space-y-1">
+          <h2 className="text-2xl font-bold text-white uppercase tracking-tight">Knowledge Check</h2>
+          <p className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Theoretical Validation</p>
         </div>
-        
-        <h3 className="text-xl font-bold text-gray-800 mb-8 leading-tight">
+        <div className="px-6 py-2 bg-black border border-zinc-800 text-[10px] font-bold text-zinc-500 uppercase tracking-widest">
+          {currentIdx + 1} / {QUESTIONS.length}
+        </div>
+      </header>
+
+      <div className="bg-zinc-900 border border-zinc-800 p-16 space-y-12">
+        <h3 className="text-2xl font-bold text-white leading-tight">
           {QUESTIONS[currentIdx].q}
         </h3>
 
-        <div className="space-y-3">
+        <div className="space-y-4">
           {QUESTIONS[currentIdx].options.map((opt, i) => (
             <button
               key={i}
               onClick={() => setSelected(i)}
-              className={`w-full p-4 rounded-xl text-left transition-all border-2 ${
+              className={`w-full p-6 text-left border flex items-center gap-6 ${
                 selected === i 
-                  ? 'border-blue-600 bg-blue-50 text-blue-900 shadow-md' 
-                  : 'border-gray-100 bg-white text-gray-600 hover:border-gray-200 hover:bg-gray-50'
+                  ? 'border-cyan-500 bg-black text-white' 
+                  : 'border-zinc-800 bg-black text-zinc-400 hover:border-zinc-600'
               }`}
             >
-              <div className="flex items-center gap-3">
-                <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
-                  selected === i ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-400'
-                }`}>
-                  {String.fromCharCode(65 + i)}
-                </span>
-                {opt}
-              </div>
+              <span className={`w-8 h-8 flex items-center justify-center text-[10px] font-bold ${
+                selected === i ? 'bg-cyan-500 text-black' : 'bg-zinc-800 text-zinc-500'
+              }`}>
+                {String.fromCharCode(65 + i)}
+              </span>
+              <span className="text-[14px] font-bold">{opt}</span>
             </button>
           ))}
         </div>
 
-        <div className="mt-10 flex justify-end">
+        <div className="pt-8 flex justify-end">
           <button
             onClick={handleNext}
             disabled={selected === null}
-            className={`px-10 py-3 rounded-xl font-bold transition-all ${
+            className={`px-12 py-4 text-[10px] font-bold uppercase tracking-widest ${
               selected === null 
-                ? 'bg-gray-200 text-gray-400 cursor-not-allowed' 
-                : 'bg-blue-600 text-white hover:bg-blue-700 shadow-lg'
+                ? 'bg-zinc-800 text-zinc-600 cursor-not-allowed' 
+                : 'bg-cyan-500 text-black hover:bg-cyan-400'
             }`}
           >
-            {currentIdx === QUESTIONS.length - 1 ? 'Finish' : 'Next Question'}
+            {currentIdx === QUESTIONS.length - 1 ? 'Finalize' : 'Next Phase'}
           </button>
         </div>
       </div>
       
-      <div className="bg-yellow-50 p-4 rounded-xl text-xs text-yellow-800 border border-yellow-100 italic">
-        Tip: If you're stuck, ask the AI Tutor for a hint!
+      <div className="bg-zinc-900 p-8 border border-zinc-800 flex items-center gap-4">
+        <div className="w-1.5 h-1.5 bg-cyan-500"></div>
+        <p className="text-[11px] text-zinc-500 font-bold uppercase tracking-widest">
+          Tip: Review the theory notes if you encounter difficulty.
+        </p>
       </div>
     </div>
   );

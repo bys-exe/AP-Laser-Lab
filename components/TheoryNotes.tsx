@@ -22,39 +22,60 @@ const TheoryNotes: React.FC<{ onNext: () => void }> = ({ onNext }) => {
   ];
 
   return (
-    <div className="animate-stage space-y-12">
+    <div className="space-y-12">
       <header className="space-y-4">
-        <div className="flex items-center gap-3">
-          <span className="bg-rose-600/20 text-rose-500 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border border-rose-500/20">Stage 02</span>
-          <h2 className="text-4xl font-black text-white leading-tight">Theory</h2>
+        <div className="flex items-center gap-4">
+          <span className="bg-zinc-800 text-cyan-500 px-3 py-1 text-[10px] font-bold uppercase tracking-widest border border-zinc-700">
+            Stage 02
+          </span>
+          <div className="h-px w-8 bg-zinc-800"></div>
+          <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Theoretical Framework</span>
         </div>
+        
+        <h2 className="text-4xl md:text-6xl font-bold text-white leading-none tracking-tighter uppercase">
+          Core <br/>
+          <span className="text-cyan-500">Principles</span>
+        </h2>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {notes.map((note, i) => (
-          <div key={i} className="bg-slate-900 border border-slate-800 p-8 rounded-[2rem] space-y-4 hover:border-slate-700 transition-colors shadow-lg">
-            <h4 className="text-rose-500 font-black uppercase text-[10px] tracking-widest">{note.title}</h4>
-            <p className="text-sm text-slate-400 leading-relaxed">{note.content}</p>
+          <div 
+            key={i} 
+            className="bg-zinc-900 border border-zinc-800 p-8 space-y-4 hover:border-cyan-500"
+          >
+            <div className="flex justify-between items-start">
+              <h4 className="text-cyan-500 font-bold uppercase text-[10px] tracking-widest">{note.title}</h4>
+              <span className="text-zinc-700 font-mono text-[9px] font-bold">0{i+1}</span>
+            </div>
+            <p className="text-[14px] text-zinc-400 leading-tight font-bold">{note.content}</p>
           </div>
         ))}
       </div>
 
-      <div className="bg-slate-900 p-10 rounded-[3rem] border border-slate-800 flex flex-col items-center text-center space-y-6">
-        <h4 className="text-xs font-black text-slate-500 uppercase tracking-widest">Critical Equilibrium Equation</h4>
-        <div className="bg-slate-950 px-12 py-8 rounded-3xl border border-slate-800">
-          <p className="text-3xl font-serif italic text-white tracking-widest">N₂ / N₁ = e <sup>-(E₂ - E₁) / kT</sup></p>
+      <div className="bg-zinc-900 p-10 border border-zinc-800 flex flex-col items-center text-center space-y-6">
+        <h4 className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest">Critical Equilibrium Equation</h4>
+        
+        <div className="bg-black px-12 py-8 border border-zinc-800">
+          <p className="text-3xl md:text-4xl font-serif italic text-white tracking-widest">
+            N₂ / N₁ = e <sup className="text-cyan-500">-(E₂ - E₁) / kT</sup>
+          </p>
         </div>
-        <p className="text-[10px] text-slate-500 max-w-lg leading-relaxed font-bold italic">
-          Boltzmann's Law describes why we need external pumping to achieve inversion.
+        
+        <p className="text-[12px] text-zinc-500 max-w-lg leading-tight font-bold italic">
+          Boltzmann's Law describes why we need external pumping to achieve inversion. 
+          At thermal equilibrium, the lower energy state is always more populated.
         </p>
       </div>
 
-      <button 
-        onClick={onNext}
-        className="w-full bg-white text-slate-950 font-black py-6 rounded-3xl shadow-2xl hover:bg-slate-200 transition-all text-xl"
-      >
-        Proceed to Stage 3: Atomic States →
-      </button>
+      <div className="pt-8">
+        <button 
+          onClick={onNext}
+          className="w-full bg-white text-black font-bold py-6 text-xl uppercase tracking-tighter hover:bg-cyan-500 active:bg-cyan-600"
+        >
+          Proceed to Energy Levels →
+        </button>
+      </div>
     </div>
   );
 };

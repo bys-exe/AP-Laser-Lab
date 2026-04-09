@@ -39,25 +39,29 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex flex-col md:flex-row font-sans text-slate-200">
-      <nav className="w-full md:w-72 bg-slate-900 border-b md:border-b-0 md:border-r border-slate-800 p-6 flex flex-col gap-8 shrink-0 overflow-y-auto">
+    <div className="min-h-screen bg-black flex flex-col md:flex-row font-mono text-white selection:bg-cyan-500 selection:text-black">
+      {/* Sidebar */}
+      <nav className="w-full md:w-72 bg-zinc-900 border-b md:border-b-0 md:border-r border-zinc-800 p-6 flex flex-col gap-8 shrink-0 overflow-y-auto">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-rose-600 rounded-lg flex items-center justify-center font-black text-white italic shadow-[0_0_20px_rgba(225,29,72,0.5)] text-xl">L</div>
+          <div className="w-10 h-10 bg-cyan-500 flex items-center justify-center font-bold text-black text-xl">
+            AP
+          </div>
           <div>
-            <h1 className="text-sm font-black tracking-widest text-white uppercase leading-none">Laser Mastery</h1>
-            <p className="text-[9px] text-slate-500 font-bold uppercase mt-1 tracking-tighter">Applied Physics Virtual Lab</p>
+            <h1 className="text-sm font-bold tracking-tighter uppercase leading-none">Laser Lab</h1>
+            <p className="text-[10px] text-zinc-500 font-bold uppercase mt-1 tracking-widest">v2.0.0-PRO</p>
           </div>
         </div>
 
-        <div className="flex flex-col gap-1.5">
+        <div className="flex flex-col gap-1">
+          <p className="text-[10px] font-bold text-zinc-600 uppercase tracking-widest mb-2 px-1">Navigation</p>
           {stages.map((s) => (
             <button
               key={s.id}
               onClick={() => setCurrentStage(s.id)}
-              className={`text-left px-4 py-3.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${
+              className={`text-left px-4 py-3 text-[10px] font-bold uppercase tracking-widest border border-transparent ${
                 currentStage === s.id 
-                ? 'bg-rose-600 text-white shadow-lg shadow-rose-900/30 translate-x-1' 
-                : 'text-slate-500 hover:text-slate-200 hover:bg-slate-800'
+                ? 'bg-cyan-500 text-black' 
+                : 'text-zinc-500 hover:bg-zinc-800 hover:text-white'
               }`}
             >
               {s.label}
@@ -65,19 +69,30 @@ const App: React.FC = () => {
           ))}
         </div>
 
-        <div className="mt-auto pt-6 border-t border-slate-800">
-          <div className="p-4 bg-slate-950/50 rounded-xl border border-slate-800/50">
-            <p className="text-[8px] font-black text-slate-600 uppercase mb-1">Curriculum Status</p>
-            <div className="w-full bg-slate-800 h-1 rounded-full overflow-hidden">
-               <div className="bg-rose-600 h-full transition-all" style={{ width: `${(stages.findIndex(s => s.id === currentStage) + 1) * 12.5}%` }}></div>
+        <div className="mt-auto pt-6 border-t border-zinc-800">
+          <div className="p-4 bg-zinc-950 border border-zinc-800">
+            <div className="flex justify-between items-end mb-2">
+              <p className="text-[9px] font-bold text-zinc-500 uppercase tracking-widest">System Load</p>
+              <p className="text-[10px] font-bold text-cyan-500">
+                {Math.round(((stages.findIndex(s => s.id === currentStage) + 1) / stages.length) * 100)}%
+              </p>
+            </div>
+            <div className="w-full bg-zinc-800 h-1">
+               <div 
+                 className="bg-cyan-500 h-full" 
+                 style={{ width: `${((stages.findIndex(s => s.id === currentStage) + 1) / stages.length) * 100}%` }}
+               />
             </div>
           </div>
         </div>
       </nav>
 
-      <main className="flex-1 overflow-y-auto bg-[#020617] relative">
-        <div className="max-w-5xl mx-auto p-6 md:p-12 lg:p-16">
-          {renderStage()}
+      {/* Main Content */}
+      <main className="flex-1 overflow-y-auto bg-black relative">
+        <div className="max-w-5xl mx-auto p-8 md:p-12">
+          <div key={currentStage}>
+            {renderStage()}
+          </div>
         </div>
       </main>
     </div>

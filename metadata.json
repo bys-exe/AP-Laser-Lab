@@ -1,5 +1,5 @@
 {
-  "name": "Laser Action Virtual Lab",
+  "name": "AP Laser Lab",
   "description": "An interactive educational platform for first-year engineering students to explore laser physics, including energy levels, population inversion, emission processes, and laser threshold conditions with an integrated AI tutor.",
   "requestFramePermissions": []
 }
