@@ -1,14 +1,14 @@
 
 import React, { useState, useEffect } from 'react';
-import { LabStage } from './types';
-import IntroStage from '@/components/IntroStage';
-import TheoryNotes from '@/components/TheoryNotes';
-import AtomicStage from '@/components/AtomicStage';
-import InteractionStage from '@/components/InteractionStage';
-import PopulationStage from '@/components/PopulationStage';
-import CavityStage from '@/components/CavityStage';
-import PracticeStage from '@/components/PracticeStage';
-import VivaStage from '@/components/VivaStage';
+import { LabStage } from './types.ts';
+import IntroStage from './components/IntroStage.tsx';
+import TheoryNotes from './components/TheoryNotes.tsx';
+import AtomicStage from './components/AtomicStage.tsx';
+import InteractionStage from './components/InteractionStage.tsx';
+import PopulationStage from './components/PopulationStage.tsx';
+import CavityStage from './components/CavityStage.tsx';
+import PracticeStage from './components/PracticeStage.tsx';
+import VivaStage from './components/VivaStage.tsx';
 
 const App: React.FC = () => {
   const [currentStage, setCurrentStage] = useState<LabStage>(LabStage.INTRODUCTION);
