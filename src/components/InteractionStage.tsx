@@ -94,26 +94,25 @@ const InteractionStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
 
   return (
     <div className="space-y-8 pb-20 font-mono">
-      <header className="flex justify-between items-start border-b border-zinc-800 pb-6 relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent" />
+      <header className="flex flex-col md:flex-row justify-between items-start border-b border-lab-border pb-6 relative overflow-hidden">
         <div className="space-y-1">
-          <h2 className="text-4xl font-black text-white uppercase tracking-tighter">Experiment 04: Einstein Processes</h2>
-          <p className="text-zinc-500 text-[10px] font-bold uppercase tracking-[0.4em]">Quantum Interaction Dynamics & Transition Probabilities</p>
+          <h2 className="text-2xl md:text-4xl font-black text-[var(--text-main)] uppercase tracking-tighter">Experiment 04: Einstein Processes</h2>
+          <p className="text-[var(--text-muted)] text-[8px] md:text-[10px] font-bold uppercase tracking-[0.4em]">Quantum Interaction Dynamics & Transition Probabilities</p>
         </div>
       </header>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-        <div className="lg:col-span-7 space-y-8">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-10">
+        <div className="lg:col-span-7 space-y-6 md:space-y-8">
           {/* Tab System */}
-          <div className="flex gap-2 bg-zinc-950 p-1.5 border border-zinc-800/50 rounded-sm">
+          <div className="flex flex-wrap gap-2 bg-lab-surface p-1.5 border border-lab-border rounded-sm">
             {(['abs', 'spon', 'stim'] as const).map(k => (
               <button
                 key={k}
                 onClick={() => setActive(k)}
-                className={`flex-1 py-4 text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-500 relative overflow-hidden ${
+                className={`flex-1 min-w-[100px] py-3 md:py-4 text-[8px] md:text-[10px] font-black uppercase tracking-[0.2em] transition-all duration-500 relative overflow-hidden ${
                   active === k 
                   ? 'text-cyan-400' 
-                  : 'text-zinc-700 hover:text-zinc-500'
+                  : 'text-[var(--text-muted)] hover:text-[var(--text-main)]'
                 }`}
               >
                 {active === k && (
@@ -130,18 +129,18 @@ const InteractionStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
           </div>
 
           {/* Visualization Panel */}
-          <div className="bg-zinc-950 border border-zinc-800 h-[450px] relative overflow-hidden shadow-[inset_0_0_100px_rgba(0,0,0,0.8)] group">
+          <div className="bg-lab-surface border border-lab-border h-[300px] md:h-[450px] relative overflow-hidden shadow-[inset_0_0_100px_rgba(0,0,0,0.1)] dark:shadow-[inset_0_0_100px_rgba(0,0,0,0.8)] group">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(6,182,212,0.05),transparent_70%)]" />
             
             {/* Glassy Energy Levels */}
             <div className="absolute inset-0 pointer-events-none">
-              <div className="absolute top-[30%] left-12 right-12 h-px bg-zinc-800">
+              <div className="absolute top-[30%] left-6 md:left-12 right-6 md:right-12 h-px bg-lab-border">
                 <div className="absolute inset-0 bg-cyan-500/20 blur-md" />
-                <div className="absolute -top-6 left-0 text-[10px] font-black text-zinc-600 uppercase tracking-widest">Excited Level (E₂)</div>
+                <div className="absolute -top-5 md:-top-6 left-0 text-[8px] md:text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest">Excited Level (E₂)</div>
               </div>
-              <div className="absolute top-[70%] left-12 right-12 h-px bg-zinc-800">
+              <div className="absolute top-[70%] left-6 md:left-12 right-6 md:right-12 h-px bg-lab-border">
                 <div className="absolute inset-0 bg-cyan-500/10 blur-sm" />
-                <div className="absolute top-4 left-0 text-[10px] font-black text-zinc-600 uppercase tracking-widest">Ground Level (E₁)</div>
+                <div className="absolute top-3 md:top-4 left-0 text-[8px] md:text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest">Ground Level (E₁)</div>
               </div>
             </div>
 
@@ -285,60 +284,59 @@ const InteractionStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
               </AnimatePresence>
             </div>
           </div>
-          
           {/* Elegant Description */}
-          <div className="bg-zinc-950 p-8 border border-zinc-900 relative overflow-hidden group">
+          <div className="bg-lab-surface p-6 md:p-8 border border-lab-border relative overflow-hidden group">
             <div className="absolute top-0 left-0 w-1 h-full bg-cyan-500/50" />
             <div className="relative z-10 space-y-4">
-              <h3 className="text-xl font-black text-cyan-400 uppercase tracking-tighter flex items-center gap-3">
+              <h3 className="text-lg md:text-xl font-black text-cyan-400 uppercase tracking-tighter flex items-center gap-3">
                 <span className="w-2 h-2 bg-cyan-500 animate-pulse" />
                 {processInfo[active].title}
               </h3>
-              <p className="text-sm text-zinc-500 leading-relaxed font-medium uppercase tracking-tight max-w-2xl">
+              <p className="text-xs md:text-sm text-[var(--text-muted)] leading-relaxed font-medium tracking-tight max-w-2xl">
                 {processInfo[active].desc}
               </p>
             </div>
           </div>
         </div>
 
-        <div className="lg:col-span-5 space-y-8">
+        <div className="lg:col-span-5 space-y-6 md:space-y-8">
           {/* Controls Panel */}
-          <div className="bg-zinc-950 p-8 border border-zinc-900 space-y-8 shadow-2xl relative">
-             <div className="space-y-6">
+          <div className="bg-lab-surface p-6 md:p-8 border border-lab-border space-y-6 md:space-y-8 shadow-2xl relative">
+             <div className="space-y-4 md:space-y-6">
                 <div className="flex justify-between items-end">
                   <div className="space-y-1">
-                    <label className="text-[9px] font-black uppercase text-zinc-600 tracking-[0.3em]">Radiation Density</label>
-                    <div className="text-2xl font-black text-white tracking-tighter">ρ(ν)</div>
+                    <label className="text-[8px] md:text-[9px] font-black uppercase text-[var(--text-muted)] tracking-[0.3em]">Radiation Density</label>
+                    <div className="text-xl md:text-2xl font-black text-[var(--text-main)] tracking-tighter">ρ(ν)</div>
                   </div>
                   <div className="text-right">
-                    <span className="text-cyan-400 font-mono text-2xl font-black">{density}</span>
-                    <span className="text-zinc-700 text-[10px] font-bold ml-2 uppercase">uJ/m³</span>
+                    <span className="text-cyan-400 font-mono text-xl md:text-2xl font-black">{density}</span>
+                    <span className="text-[var(--text-muted)] text-[8px] md:text-[10px] font-bold ml-2 uppercase">uJ/m³</span>
                   </div>
                 </div>
                 
-                <div className="relative h-12 flex items-center px-4 bg-black border border-zinc-900 rounded-sm">
+                <div className="relative h-10 md:h-12 flex items-center px-4 bg-lab-bg border border-lab-border rounded-sm">
                   <input 
                     type="range" 
                     min="0"
                     max="100"
                     value={density} 
                     onChange={(e) => setDensity(Number(e.target.value))} 
-                    className="w-full h-1 bg-zinc-800 appearance-none cursor-pointer accent-cyan-500 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:bg-cyan-500 [&::-webkit-slider-thumb]:rounded-none [&::-webkit-slider-thumb]:appearance-none"
+                    className="w-full h-1 bg-lab-border appearance-none cursor-pointer accent-cyan-500 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:bg-cyan-500 [&::-webkit-slider-thumb]:rounded-none [&::-webkit-slider-thumb]:appearance-none"
                   />
                 </div>
              </div>
 
-             <div className="bg-black p-8 border border-zinc-900 space-y-6 relative overflow-hidden">
+             <div className="bg-lab-bg p-6 md:p-8 border border-lab-border space-y-4 md:space-y-6 relative overflow-hidden">
                 <div className="absolute top-0 right-0 p-2 opacity-10">
                   <svg width="40" height="40" viewBox="0 0 40 40">
-                    <path d="M 0 40 L 40 0" stroke="white" strokeWidth="1" />
+                    <path d="M 0 40 L 40 0" stroke="currentColor" strokeWidth="1" className="text-[var(--text-main)]" />
                   </svg>
                 </div>
-                <h4 className="text-[9px] font-black uppercase text-zinc-600 tracking-[0.3em]">Statistical Probability Scaling</h4>
-                <div className="h-[140px] w-full relative border-b border-l border-zinc-800/50">
+                <h4 className="text-[8px] md:text-[9px] font-black uppercase text-[var(--text-muted)] tracking-[0.3em]">Statistical Probability Scaling</h4>
+                <div className="h-[100px] md:h-[140px] w-full relative border-b border-l border-lab-border/50">
                    {/* Grid Lines */}
                    <div className="absolute inset-0 grid grid-cols-4 grid-rows-4 opacity-5">
-                     {[...Array(16)].map((_, i) => <div key={i} className="border border-white" />)}
+                     {[...Array(16)].map((_, i) => <div key={i} className="border border-[var(--text-main)]" />)}
                    </div>
                    
                    <svg width="100%" height="100%" viewBox="0 0 300 100" preserveAspectRatio="none" className="relative z-10">
@@ -349,17 +347,17 @@ const InteractionStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
                         </linearGradient>
                       </defs>
                       <motion.path 
-                        d={`M 0 100 L 300 ${100 - (density * 0.9)}`} 
+                        d={"M 0 100 L 300 " + (100 - (density * 0.9))} 
                         fill="none" 
                         stroke="url(#graphGradient)" 
                         strokeWidth="3" 
-                        animate={{ d: `M 0 100 L 300 ${100 - (density * 0.9)}` }}
+                        animate={{ d: "M 0 100 L 300 " + (100 - (density * 0.9)) }}
                         className="drop-shadow-[0_0_10px_rgba(6,182,212,0.5)]"
                       />
                       <circle cx="300" cy={100 - (density * 0.9)} r="4" fill="#06b6d4" className="animate-pulse" />
                    </svg>
                 </div>
-                <div className="flex justify-between text-[8px] text-zinc-700 font-black uppercase tracking-widest">
+                <div className="flex justify-between text-[7px] md:text-[8px] text-[var(--text-muted)] font-black uppercase tracking-widest">
                   <span>Input Density ρ</span>
                   <span>Probability W_21</span>
                 </div>
@@ -369,19 +367,19 @@ const InteractionStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
           {/* Dimensional Button */}
           <button 
             onClick={onNext} 
-            className="group relative w-full bg-zinc-900 border border-zinc-800 p-6 transition-all hover:border-cyan-500/50"
+            className="group relative w-full bg-lab-surface border border-lab-border p-5 md:p-6 transition-all hover:border-cyan-500/50"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-500/5 to-cyan-500/0 opacity-0 group-hover:opacity-100 transition-opacity" />
             
             {/* Static Border Effect */}
-            <div className="absolute top-0 left-0 w-full h-[2px] bg-zinc-800" />
-            <div className="absolute bottom-0 left-0 w-full h-[2px] bg-zinc-800" />
+            <div className="absolute top-0 left-0 w-full h-[2px] bg-lab-border" />
+            <div className="absolute bottom-0 left-0 w-full h-[2px] bg-lab-border" />
 
             <div className="relative flex items-center justify-between">
-              <span className="text-xl font-black text-white uppercase tracking-tighter group-hover:text-cyan-400 transition-colors">
+              <span className="text-lg md:text-xl font-black text-[var(--text-main)] uppercase tracking-tighter group-hover:text-cyan-400 transition-colors">
                 Go to Population Lab
               </span>
-              <span className="text-2xl text-cyan-500">
+              <span className="text-xl md:text-2xl text-cyan-500">
                 →
               </span>
             </div>
