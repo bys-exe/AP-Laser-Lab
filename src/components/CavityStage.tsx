@@ -42,13 +42,15 @@ const CavityStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
               {[...Array(6)].map((_, i) => (
                 <div 
                   key={i} 
-                  className="absolute h-[2px] bg-white shadow-[0_0_10px_white] w-32"
+                  className="absolute text-white text-xl font-black italic tracking-tighter whitespace-nowrap"
                   style={{
                     top: `${15 + i * 14}%`,
                     animation: `fastLaser ${0.3 + Math.random() * 0.4}s linear infinite`,
                     animationDelay: `${i * 0.1}s`
                   }}
-                ></div>
+                >
+                  ~~~~~~
+                </div>
               ))}
               {/* Main Core Beam Trail */}
               <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-1 bg-cyan-500/40 blur-sm"></div>
@@ -56,13 +58,20 @@ const CavityStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
           ) : (
             /* Slow, scattered seed photons when below threshold */
             <div className="absolute inset-0 z-20 flex items-center justify-center">
-              <div className="w-2 h-2 bg-white rounded-full animate-ping opacity-20"></div>
+              <div className="text-white text-2xl font-black italic tracking-tighter animate-pulse opacity-40">
+                ~~~~~~
+              </div>
             </div>
           )}
           
           {/* Continuous Lasing Beam Output */}
           {isLasing && (
-             <div className="absolute right-0 h-10 bg-cyan-500/80 shadow-[0_0_60px_#06b6d4,0_0_100px_rgba(6,182,212,0.3)] w-[300px] translate-x-full rounded-full animate-pulse z-30"></div>
+             <div className="absolute right-0 h-10 flex items-center translate-x-full z-30">
+                <div className="h-1 bg-cyan-500 shadow-[0_0_60px_#06b6d4] w-[300px] animate-pulse"></div>
+                <div className="absolute left-0 text-white text-4xl font-black italic tracking-tighter animate-pulse">
+                  ~~~~~~~~~~~~~~~~~~
+                </div>
+             </div>
           )}
 
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
