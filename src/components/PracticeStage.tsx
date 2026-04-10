@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { motion } from 'motion/react';
 
 const PracticeStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
   const [userInput, setUserInput] = useState('');
@@ -23,71 +24,101 @@ const PracticeStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
   };
 
   return (
-    <div className="animate-stage space-y-12">
-      <header className="space-y-1">
-        <h2 className="text-3xl font-black text-white uppercase tracking-tight">Experiment 07: Numerical Analysis</h2>
-        <p className="text-zinc-500 text-sm font-bold uppercase tracking-widest">Quantifying laser conditions through first-principles calculation.</p>
+    <div className="animate-stage space-y-12 font-mono pb-20">
+      <header className="flex justify-between items-start border-b border-zinc-900 pb-8 relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent" />
+        <div className="space-y-2">
+          <h2 className="text-4xl font-black text-white uppercase tracking-tighter">Experiment 07: Numerical Analysis</h2>
+          <p className="text-zinc-500 text-[10px] font-bold uppercase tracking-[0.4em]">Quantifying Laser Conditions via First-Principles</p>
+        </div>
       </header>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-        <div className="bg-zinc-900 p-10 border border-zinc-800 space-y-8 shadow-2xl">
-          <h3 className="text-2xl font-black text-white leading-tight uppercase tracking-tighter">{problem.title}</h3>
-          <p className="text-zinc-400 leading-relaxed text-sm font-bold uppercase tracking-tight">{problem.text}</p>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+        <div className="lg:col-span-7 bg-zinc-950 p-10 border border-zinc-900 space-y-10 shadow-2xl relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-1 h-full bg-cyan-500/20" />
+          <div className="space-y-6">
+            <h3 className="text-3xl font-black text-white leading-tight uppercase tracking-tighter">{problem.title}</h3>
+            <p className="text-[11px] text-zinc-500 leading-relaxed font-medium uppercase tracking-tight max-w-xl">{problem.text}</p>
+          </div>
           
-          <div className="space-y-4 pt-4">
-            <label className="text-[10px] font-black uppercase text-zinc-600 tracking-widest">Enter Result (Order of Magnitude)</label>
+          <div className="space-y-6 pt-4">
+            <label className="text-[9px] font-black uppercase text-zinc-600 tracking-[0.3em]">Enter Result (Order of Magnitude)</label>
             <div className="flex gap-4">
               <input 
                 type="text" 
                 placeholder="e.g. 10^-30"
                 value={userInput}
                 onChange={(e) => setUserInput(e.target.value)}
-                className="flex-1 bg-black border border-zinc-800 px-6 py-4 text-white font-mono outline-none focus:border-cyan-500 transition-colors"
+                className="flex-1 bg-black border border-zinc-900 px-8 py-5 text-white font-mono outline-none focus:border-cyan-500/50 transition-all shadow-inner placeholder:text-zinc-800"
               />
-              <button onClick={checkAnswer} className="bg-cyan-500 text-black font-black px-8 py-4 hover:bg-white transition-all shadow-lg">Verify</button>
+              <button 
+                onClick={checkAnswer} 
+                className="bg-zinc-900 border border-zinc-800 text-white font-black px-10 py-5 hover:border-cyan-500/50 transition-all uppercase tracking-widest text-xs"
+              >
+                Verify
+              </button>
             </div>
           </div>
 
           {feedback && (
-            <div className={`p-6 border-2 ${feedback.includes('CORRECT') ? 'border-cyan-500 bg-cyan-500/5 text-cyan-500' : 'border-red-900 bg-black text-red-500'}`}>
-              <p className="text-xs font-bold leading-relaxed uppercase tracking-tight">{feedback}</p>
-            </div>
+            <motion.div 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className={`p-8 border ${feedback.includes('CORRECT') ? 'border-cyan-500/30 bg-cyan-500/5 text-cyan-400' : 'border-red-900/30 bg-red-950/5 text-red-500'}`}
+            >
+              <p className="text-[10px] font-black leading-relaxed uppercase tracking-widest">{feedback}</p>
+            </motion.div>
           )}
 
-          <div className="pt-4 flex gap-4">
-             <button onClick={() => setShowSolution(!showSolution)} className="text-[10px] font-black uppercase text-zinc-600 hover:text-white transition-colors">
-               {showSolution ? 'Hide Solution' : 'Show Step-by-Step Solution'}
+          <div className="pt-4">
+             <button onClick={() => setShowSolution(!showSolution)} className="text-[9px] font-black uppercase text-zinc-700 hover:text-cyan-500 transition-colors tracking-[0.3em]">
+               {showSolution ? '[-] Hide Solution' : '[+] Show Step-by-Step Solution'}
              </button>
           </div>
 
           {showSolution && (
-            <div className="bg-black p-6 border border-zinc-800 text-xs text-zinc-500 font-mono whitespace-pre-line animate-fadeIn">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="bg-black p-8 border border-zinc-900 text-[10px] text-zinc-600 font-mono whitespace-pre-line leading-loose uppercase tracking-widest shadow-inner"
+            >
               {problem.solution}
-            </div>
+            </motion.div>
           )}
         </div>
 
-        <div className="bg-zinc-900 p-10 border border-zinc-800 space-y-8 shadow-2xl">
-           <h4 className="text-[10px] font-black uppercase text-zinc-600 tracking-widest">Reference Constants</h4>
-           <div className="grid gap-4">
-              <div className="p-4 bg-black border border-zinc-800 flex justify-between items-center">
-                 <span className="text-[10px] font-bold text-zinc-600 uppercase">Planck's (h)</span>
-                 <span className="text-xs font-mono text-white">6.63 x 10⁻³⁴ J·s</span>
-              </div>
-              <div className="p-4 bg-black border border-zinc-800 flex justify-between items-center">
-                 <span className="text-[10px] font-bold text-zinc-600 uppercase">Boltzmann (k)</span>
-                 <span className="text-xs font-mono text-white">1.38 x 10⁻²³ J/K</span>
-              </div>
-              <div className="p-4 bg-black border border-zinc-800 flex justify-between items-center">
-                 <span className="text-[10px] font-bold text-zinc-600 uppercase">Speed of Light (c)</span>
-                 <span className="text-xs font-mono text-white">3.00 x 10⁸ m/s</span>
+        <div className="lg:col-span-5 space-y-8">
+           <div className="bg-zinc-950 p-10 border border-zinc-900 space-y-10 shadow-2xl relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 blur-3xl rounded-full" />
+              <h4 className="text-[10px] font-black uppercase text-zinc-600 tracking-[0.3em] border-b border-zinc-900 pb-4">Reference Constants</h4>
+              <div className="space-y-6">
+                 {[
+                   { label: "Planck's (h)", val: "6.63 x 10⁻³⁴ J·s" },
+                   { label: "Boltzmann (k)", val: "1.38 x 10⁻²³ J/K" },
+                   { label: "Speed of Light (c)", val: "3.00 x 10⁸ m/s" }
+                 ].map((c, i) => (
+                   <div key={i} className="p-6 bg-black border border-zinc-900 flex justify-between items-center shadow-inner group">
+                      <div className="absolute inset-0 bg-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
+                      <span className="text-[9px] font-black text-zinc-700 uppercase tracking-widest relative z-10">{c.label}</span>
+                      <span className="text-xs font-black text-white tracking-tighter relative z-10">{c.val}</span>
+                   </div>
+                 ))}
               </div>
            </div>
+
            <button 
-            onClick={onNext}
-            className="w-full bg-white text-black font-black py-5 hover:bg-cyan-500 transition-all shadow-xl text-xl"
+            onClick={onNext} 
+            className="group relative w-full bg-zinc-900 border border-zinc-800 p-8 transition-all hover:border-cyan-500/50"
           >
-            Enter Final Evaluation →
+            <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-5 transition-opacity" />
+            <div className="absolute top-0 left-0 w-full h-[2px] bg-zinc-800 overflow-hidden">
+              <motion.div 
+                className="h-full bg-cyan-500"
+                animate={{ x: ['-100%', '100%'] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+              />
+            </div>
+            <span className="text-xl font-black text-white uppercase tracking-tighter group-hover:text-cyan-400 transition-colors">Enter Final Evaluation →</span>
           </button>
         </div>
       </div>

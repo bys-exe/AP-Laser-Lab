@@ -1,5 +1,36 @@
 
 import React, { useState } from 'react';
+import { motion } from 'motion/react';
+
+const WavePacket: React.FC<{ 
+  color?: string; 
+  className?: string; 
+  animate?: any;
+  initial?: any;
+  transition?: any;
+  style?: React.CSSProperties;
+}> = ({ color = "#facc15", className = "", animate, initial, transition, style }) => {
+  const path = "M 0 0 Q 5 -10 10 0 Q 15 15 20 0 Q 25 -20 30 0 Q 35 25 40 0 Q 45 -20 50 0 Q 55 15 60 0 Q 65 -10 70 0";
+  return (
+    <motion.svg 
+      viewBox="0 0 70 50" 
+      className={`w-12 h-6 overflow-visible ${className}`}
+      initial={initial}
+      animate={animate}
+      transition={transition}
+      style={style}
+    >
+      <defs>
+        <linearGradient id="waveGradientCavity" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor={color} stopOpacity="0" />
+          <stop offset="50%" stopColor={color} stopOpacity="1" />
+          <stop offset="100%" stopColor={color} stopOpacity="0" />
+        </linearGradient>
+      </defs>
+      <path d={path} fill="none" stroke="url(#waveGradientCavity)" strokeWidth="3" strokeLinecap="round" />
+    </motion.svg>
+  );
+};
 
 const CavityStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
   const [gain, setGain] = useState(1.5);
@@ -9,89 +40,115 @@ const CavityStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
   const isLasing = gain >= threshold;
 
   return (
-    <div className="animate-stage space-y-12 pb-20">
-      <header className="flex justify-between items-start border-b border-zinc-800 pb-6">
-        <div className="space-y-1">
-          <h2 className="text-4xl font-black text-white tracking-tight uppercase">Stage 06: The Optical Cavity</h2>
-          <p className="text-zinc-500 text-sm font-bold uppercase tracking-widest">Resonance, feedback, and achieving the lasing threshold.</p>
+    <div className="animate-stage space-y-12 pb-20 font-mono">
+      <header className="flex justify-between items-start border-b border-zinc-900 pb-8 relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent" />
+        <div className="space-y-2">
+          <h2 className="text-4xl font-black text-white tracking-tighter uppercase">Stage 06: The Optical Cavity</h2>
+          <p className="text-zinc-500 text-[10px] font-bold uppercase tracking-[0.4em]">Resonance, Feedback, & Lasing Threshold Dynamics</p>
         </div>
       </header>
 
       {/* Optical Cavity Box Animation */}
-      <div className="relative h-[450px] w-full flex items-center justify-center bg-zinc-900/20 border border-zinc-800/50 shadow-inner overflow-hidden">
+      <div className="relative h-[480px] w-full flex items-center justify-center bg-zinc-950 border border-zinc-900 shadow-[inset_0_0_100px_rgba(0,0,0,0.8)] overflow-hidden group">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(6,182,212,0.02),transparent_70%)]" />
         
         {/* Mirror Labels */}
-        <div className="absolute left-6 top-1/2 -translate-y-1/2 rotate-180 flex flex-col items-center gap-2" style={{ writingMode: 'vertical-rl' }}>
-           <span className="text-zinc-700 font-black text-[10px] uppercase tracking-[0.4em]">100% Mirror (Full)</span>
-           <div className="w-1.5 h-32 bg-zinc-800"></div>
+        <div className="absolute left-10 top-1/2 -translate-y-1/2 rotate-180 flex flex-col items-center gap-4" style={{ writingMode: 'vertical-rl' }}>
+           <span className="text-zinc-700 font-black text-[9px] uppercase tracking-[0.5em]">100% Mirror (Full)</span>
+           <div className="w-2 h-40 bg-zinc-900 border border-zinc-800 shadow-[0_0_20px_rgba(0,0,0,0.5)]"></div>
         </div>
-        <div className="absolute right-6 top-1/2 -translate-y-1/2 flex flex-col items-center gap-2" style={{ writingMode: 'vertical-rl' }}>
-           <span className="text-cyan-500 font-black text-[10px] uppercase tracking-[0.4em]">Output Coupler (Partial)</span>
-           <div className="w-1.5 h-32 bg-cyan-500"></div>
+        <div className="absolute right-10 top-1/2 -translate-y-1/2 flex flex-col items-center gap-4" style={{ writingMode: 'vertical-rl' }}>
+           <span className="text-cyan-500 font-black text-[9px] uppercase tracking-[0.5em]">Output Coupler (Partial)</span>
+           <div className="w-2 h-40 bg-cyan-500 shadow-[0_0_30px_rgba(6,182,212,0.3)]"></div>
         </div>
 
-        {/* The Cavity Rectangle (Dark Red Box) */}
-        <div className="w-[85%] h-[320px] bg-zinc-950 border-x-[12px] border-zinc-800 relative overflow-hidden shadow-2xl flex items-center group">
+        {/* The Cavity Rectangle */}
+        <div className="w-[75%] h-[300px] bg-black border-x-[1px] border-zinc-800 relative overflow-hidden shadow-2xl flex items-center">
           
           {/* Internal Glow when lasing */}
-          <div className={`absolute inset-0 transition-opacity duration-1000 ${isLasing ? 'opacity-30 bg-cyan-500 blur-2xl' : 'opacity-0'}`}></div>
+          <motion.div 
+            className="absolute inset-0 bg-cyan-500/10 blur-3xl pointer-events-none"
+            animate={{ opacity: isLasing ? 1 : 0 }}
+          />
           
           {/* Multiple Fast Moving Laser Lines */}
           {isLasing ? (
             <div className="absolute inset-0 z-20">
-              {[...Array(6)].map((_, i) => (
-                <div 
-                  key={i} 
-                  className="absolute text-white text-xl font-black italic tracking-tighter whitespace-nowrap"
-                  style={{
-                    top: `${15 + i * 14}%`,
-                    animation: `fastLaser ${0.3 + Math.random() * 0.4}s linear infinite`,
-                    animationDelay: `${i * 0.1}s`
+              {[...Array(8)].map((_, i) => (
+                <WavePacket 
+                  key={i}
+                  animate={{ x: [-150, 600] }}
+                  transition={{ 
+                    duration: 0.4 + Math.random() * 0.2, 
+                    repeat: Infinity, 
+                    delay: i * 0.05,
+                    ease: "linear"
                   }}
-                >
-                  ~~~~~~
-                </div>
+                  className="absolute"
+                  style={{ top: `${10 + i * 11}%` }}
+                />
               ))}
               {/* Main Core Beam Trail */}
-              <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-1 bg-cyan-500/40 blur-sm"></div>
+              <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[2px] bg-cyan-500/30 blur-sm"></div>
             </div>
           ) : (
             /* Slow, scattered seed photons when below threshold */
             <div className="absolute inset-0 z-20 flex items-center justify-center">
-              <div className="text-white text-2xl font-black italic tracking-tighter animate-pulse opacity-40">
-                ~~~~~~
-              </div>
+              <WavePacket 
+                animate={{ opacity: [0.2, 0.5, 0.2] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="scale-150"
+              />
             </div>
           )}
           
           {/* Continuous Lasing Beam Output */}
           {isLasing && (
-             <div className="absolute right-0 h-10 flex items-center translate-x-full z-30">
-                <div className="h-1 bg-cyan-500 shadow-[0_0_60px_#06b6d4] w-[300px] animate-pulse"></div>
-                <div className="absolute left-0 text-white text-4xl font-black italic tracking-tighter animate-pulse">
-                  ~~~~~~~~~~~~~~~~~~
+             <div className="absolute right-0 h-12 flex items-center translate-x-full z-30">
+                <motion.div 
+                  className="h-1 bg-cyan-500 shadow-[0_0_60px_#06b6d4] w-[400px]"
+                  animate={{ opacity: [0.8, 1, 0.8] }}
+                  transition={{ duration: 0.1, repeat: Infinity }}
+                />
+                <div className="absolute left-0 flex gap-0">
+                  {[...Array(3)].map((_, i) => (
+                    <WavePacket key={i} className="scale-150" />
+                  ))}
                 </div>
              </div>
           )}
 
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-40">
              {!isLasing ? (
-               <span className="text-[10px] font-black text-zinc-800 uppercase tracking-widest animate-pulse italic">Gain &lt; Cavity Loss</span>
+               <span className="text-[9px] font-black text-zinc-800 uppercase tracking-[0.4em] italic">Gain &lt; Cavity Loss</span>
              ) : (
-               <span className="text-[10px] font-black text-white uppercase tracking-[0.8em] animate-pulse drop-shadow-lg">STIMULATED OSCILLATION ACTIVE</span>
+               <motion.span 
+                className="text-[10px] font-black text-white uppercase tracking-[1em] drop-shadow-lg"
+                animate={{ opacity: [0.5, 1, 0.5] }}
+                transition={{ duration: 2, repeat: Infinity }}
+               >
+                 STIMULATED OSCILLATION ACTIVE
+               </motion.span>
              )}
           </div>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-        <div className="bg-zinc-900 p-10 border border-zinc-800 space-y-10 shadow-2xl">
-          <div className="space-y-6">
-            <div className="flex justify-between items-center">
-              <span className="text-[10px] font-black text-zinc-600 uppercase tracking-widest">Optical Gain Coefficient (g)</span>
-              <span className={`text-2xl font-mono font-black ${isLasing ? 'text-cyan-500' : 'text-zinc-700'}`}>{gain.toFixed(1)}x</span>
+        <div className="bg-zinc-950 p-10 border border-zinc-900 space-y-10 shadow-2xl relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-1 h-full bg-cyan-500/20" />
+          <div className="space-y-8">
+            <div className="flex justify-between items-end">
+              <div className="space-y-1">
+                <label className="text-[9px] font-black uppercase text-zinc-600 tracking-[0.3em]">Optical Gain Coefficient</label>
+                <div className="text-2xl font-black text-white tracking-tighter">g</div>
+              </div>
+              <div className="text-right">
+                <span className={`text-3xl font-black tracking-tighter transition-colors ${isLasing ? 'text-cyan-400' : 'text-zinc-700'}`}>{gain.toFixed(1)}x</span>
+              </div>
             </div>
-            <div className="bg-black p-4 border border-zinc-800 shadow-inner">
+            <div className="relative h-12 flex items-center px-4 bg-black border border-zinc-900 rounded-sm">
               <input 
                 type="range" 
                 min="0.5" 
@@ -99,62 +156,72 @@ const CavityStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
                 step="0.1" 
                 value={gain} 
                 onChange={(e) => setGain(Number(e.target.value))} 
-                className="w-full accent-cyan-500"
+                className="w-full h-1 bg-zinc-800 appearance-none cursor-pointer accent-cyan-500 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:bg-cyan-500 [&::-webkit-slider-thumb]:rounded-none [&::-webkit-slider-thumb]:appearance-none"
               />
             </div>
           </div>
 
-          <div className="space-y-6">
-            <div className="flex justify-between items-center">
-              <span className="text-[10px] font-black text-zinc-600 uppercase tracking-widest">Mirror Reflectivity (%)</span>
-              <span className="text-white font-mono font-black text-2xl">{reflectivity}%</span>
+          <div className="space-y-8">
+            <div className="flex justify-between items-end">
+              <div className="space-y-1">
+                <label className="text-[9px] font-black uppercase text-zinc-600 tracking-[0.3em]">Mirror Reflectivity</label>
+                <div className="text-2xl font-black text-white tracking-tighter">R (%)</div>
+              </div>
+              <div className="text-right">
+                <span className="text-white text-3xl font-black tracking-tighter">{reflectivity}%</span>
+              </div>
             </div>
-            <div className="bg-black p-4 border border-zinc-800 shadow-inner">
+            <div className="relative h-12 flex items-center px-4 bg-black border border-zinc-900 rounded-sm">
               <input 
                 type="range" 
                 min="50" 
                 max="99" 
                 value={reflectivity} 
                 onChange={(e) => setReflectivity(Number(e.target.value))} 
-                className="w-full accent-cyan-500"
+                className="w-full h-1 bg-zinc-800 appearance-none cursor-pointer accent-cyan-500 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:bg-cyan-500 [&::-webkit-slider-thumb]:rounded-none [&::-webkit-slider-thumb]:appearance-none"
               />
             </div>
           </div>
         </div>
 
-        <div className="bg-zinc-900 p-10 border border-zinc-800 space-y-8 flex flex-col justify-center shadow-2xl">
-          <h3 className="text-xs font-black text-cyan-500 uppercase tracking-widest flex items-center gap-2">
-            <div className="w-1.5 h-1.5 bg-cyan-500 rounded-full animate-pulse"></div>
+        <div className="bg-zinc-950 p-10 border border-zinc-900 space-y-8 flex flex-col justify-center shadow-2xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 blur-3xl rounded-full" />
+          <h3 className="text-xs font-black text-cyan-400 uppercase tracking-[0.3em] flex items-center gap-3">
+            <span className="w-2 h-2 bg-cyan-500 animate-pulse" />
             Theory: Optical Feedback Mechanism
           </h3>
-          <p className="text-sm text-zinc-400 leading-relaxed font-bold uppercase tracking-tight">
-            The optical resonator mirrors provide <span className="text-white">feedback</span> by reflecting photons back into the gain medium multiple times. This increases the distance light travels through the medium, allowing for massive amplification. At the 'threshold', the gain precisely matches internal and mirror losses, resulting in a stable output beam.
+          <p className="text-[11px] text-zinc-500 leading-relaxed font-medium uppercase tracking-tight">
+            The optical resonator mirrors provide <span className="text-white font-bold">feedback</span> by reflecting photons back into the gain medium multiple times. This increases the distance light travels through the medium, allowing for massive amplification. At the 'threshold', the gain precisely matches internal and mirror losses, resulting in a stable output beam.
           </p>
-          <div className="mt-4 p-6 bg-black border border-zinc-800 shadow-inner">
-             <div className="flex justify-between items-center">
-                <span className="text-[10px] font-black text-zinc-700 uppercase">Resonator Status</span>
-                <span className={`text-[11px] font-black uppercase ${isLasing ? 'text-cyan-500' : 'text-zinc-700'}`}>
+          <div className="p-6 bg-black border border-zinc-900 shadow-inner relative group">
+             <div className="absolute inset-0 bg-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
+             <div className="flex justify-between items-center relative z-10">
+                <span className="text-[9px] font-black text-zinc-700 uppercase tracking-widest">Resonator Status</span>
+                <span className={`text-[10px] font-black uppercase tracking-widest ${isLasing ? 'text-cyan-400' : 'text-zinc-700'}`}>
                    {isLasing ? 'Stimulated Oscillation Sustained' : 'Below Lasing Threshold'}
                 </span>
              </div>
           </div>
+          
           <button 
-            onClick={onNext}
-            className="w-full bg-white text-black font-black py-5 hover:bg-cyan-500 transition-all shadow-2xl text-xl mt-4"
+            onClick={onNext} 
+            className="group relative w-full bg-zinc-900 border border-zinc-800 p-8 transition-all hover:border-cyan-500/50"
           >
-            Go to Numerical Lab →
+            <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-5 transition-opacity" />
+            <div className="absolute top-0 left-0 w-full h-[2px] bg-zinc-800 overflow-hidden">
+              <motion.div 
+                className="h-full bg-cyan-500"
+                animate={{ x: ['-100%', '100%'] }}
+                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+              />
+            </div>
+            <span className="text-xl font-black text-white uppercase tracking-tighter group-hover:text-cyan-400 transition-colors">Continue to Numerical Lab →</span>
           </button>
         </div>
       </div>
-
-      <style>{`
-        @keyframes fastLaser {
-          0% { left: -150px; }
-          100% { left: 100%; }
-        }
-      `}</style>
     </div>
   );
 };
 
 export default CavityStage;
+;
