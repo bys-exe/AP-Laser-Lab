@@ -93,7 +93,7 @@ const InteractionStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
   };
 
   return (
-    <div className="animate-stage space-y-8 pb-20 font-mono">
+    <div className="space-y-8 pb-20 font-mono">
       <header className="flex justify-between items-start border-b border-zinc-800 pb-6 relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent" />
         <div className="space-y-1">
@@ -373,33 +373,17 @@ const InteractionStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
           >
             <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-500/5 to-cyan-500/0 opacity-0 group-hover:opacity-100 transition-opacity" />
             
-            {/* Progress Border Effect */}
-            <div className="absolute top-0 left-0 w-full h-[2px] bg-zinc-800 overflow-hidden">
-              <motion.div 
-                className="h-full bg-cyan-500"
-                animate={{ x: ['-100%', '100%'] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-              />
-            </div>
-            <div className="absolute bottom-0 left-0 w-full h-[2px] bg-zinc-800 overflow-hidden">
-              <motion.div 
-                className="h-full bg-cyan-500"
-                animate={{ x: ['100%', '-100%'] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-              />
-            </div>
+            {/* Static Border Effect */}
+            <div className="absolute top-0 left-0 w-full h-[2px] bg-zinc-800" />
+            <div className="absolute bottom-0 left-0 w-full h-[2px] bg-zinc-800" />
 
             <div className="relative flex items-center justify-between">
               <span className="text-xl font-black text-white uppercase tracking-tighter group-hover:text-cyan-400 transition-colors">
                 Go to Population Lab
               </span>
-              <motion.span 
-                className="text-2xl text-cyan-500"
-                animate={{ x: [0, 5, 0] }}
-                transition={{ duration: 1.5, repeat: Infinity }}
-              >
+              <span className="text-2xl text-cyan-500">
                 →
-              </motion.span>
+              </span>
             </div>
           </button>
         </div>

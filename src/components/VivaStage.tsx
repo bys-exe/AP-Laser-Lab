@@ -44,7 +44,7 @@ const VivaStage: React.FC<{ onRestart: () => void }> = ({ onRestart }) => {
 
   if (showResult) {
     return (
-      <div className="animate-stage space-y-12 text-center font-mono py-20">
+      <div className="space-y-12 text-center font-mono py-20">
         <div className="space-y-6">
           <div className="inline-block px-4 py-1 bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-[10px] font-black uppercase tracking-[0.5em]">
             Evaluation Complete
@@ -68,13 +68,7 @@ const VivaStage: React.FC<{ onRestart: () => void }> = ({ onRestart }) => {
             className="group relative w-full bg-zinc-900 border border-zinc-800 p-8 transition-all hover:border-cyan-500/50"
           >
             <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-5 transition-opacity" />
-            <div className="absolute top-0 left-0 w-full h-[2px] bg-zinc-800 overflow-hidden">
-              <motion.div 
-                className="h-full bg-cyan-500"
-                animate={{ x: ['-100%', '100%'] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-              />
-            </div>
+            <div className="absolute top-0 left-0 w-full h-[2px] bg-zinc-800" />
             <span className="text-xl font-black text-white uppercase tracking-tighter group-hover:text-cyan-400 transition-colors">Restart Laboratory</span>
           </button>
         </div>
@@ -83,7 +77,7 @@ const VivaStage: React.FC<{ onRestart: () => void }> = ({ onRestart }) => {
   }
 
   return (
-    <div className="animate-stage space-y-16 font-mono py-10">
+    <div className="space-y-16 font-mono py-10">
       <div className="space-y-6">
         <div className="inline-block px-4 py-1 bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-[10px] font-black uppercase tracking-[0.5em]">
           Stage 08: Viva Voce

@@ -4,15 +4,11 @@ import { motion } from 'motion/react';
 
 const TheoryNotes: React.FC<{ onNext: () => void }> = ({ onNext }) => {
   return (
-    <div className="space-y-16 animate-in fade-in slide-in-from-bottom-8 duration-1000 font-mono">
+    <div className="space-y-16 font-mono">
       <div className="space-y-6">
-        <motion.div 
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          className="inline-block px-4 py-1.5 bg-cyan-500/5 border border-cyan-500/20 text-cyan-500 text-[10px] font-black uppercase tracking-[0.5em]"
-        >
+        <div className="inline-block px-4 py-1.5 bg-cyan-500/5 border border-cyan-500/20 text-cyan-500 text-[10px] font-black uppercase tracking-[0.5em]">
           Knowledge Base :: AP-742
-        </motion.div>
+        </div>
         <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-[0.85] text-white">
           Theoretical <br />
           <span className="text-cyan-500 italic drop-shadow-[0_0_30px_rgba(6,182,212,0.3)]">Foundations</span>
@@ -92,13 +88,7 @@ const TheoryNotes: React.FC<{ onNext: () => void }> = ({ onNext }) => {
           <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-5 transition-opacity" />
           <span className="relative z-10 group-hover:text-cyan-400 transition-colors">Begin Atomic Analysis →</span>
           
-          <div className="absolute top-0 left-0 w-full h-[2px] bg-zinc-800 overflow-hidden">
-            <motion.div 
-              className="h-full bg-cyan-500"
-              animate={{ x: ['-100%', '100%'] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-            />
-          </div>
+          <div className="absolute top-0 left-0 w-full h-[2px] bg-zinc-800" />
         </button>
       </div>
     </div>
