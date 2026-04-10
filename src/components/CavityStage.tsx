@@ -209,7 +209,7 @@ const CavityStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
           >
             <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-5 transition-opacity" />
             <div className="absolute top-0 left-0 w-full h-[2px] bg-zinc-800" />
-            <span className="text-xl font-black text-white uppercase tracking-tighter group-hover:text-cyan-400 transition-colors">Continue to Numerical Lab →</span>
+            <span className="text-xl font-black text-white uppercase tracking-tighter group-hover:text-cyan-400 transition-colors">Continue to Optical Comms →</span>
           </button>
         </div>
       </div>

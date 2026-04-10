@@ -9,6 +9,7 @@ import InteractionStage from './components/InteractionStage.tsx';
 import PopulationStage from './components/PopulationStage.tsx';
 import CavityStage from './components/CavityStage.tsx';
 import PracticeStage from './components/PracticeStage.tsx';
+import BitStreamLab from './components/BitStreamLab.tsx';
 import VivaStage from './components/VivaStage.tsx';
 
 const App: React.FC = () => {
@@ -27,8 +28,9 @@ const App: React.FC = () => {
     { id: LabStage.INTERACTIONS, label: '04 Einstein Processes' },
     { id: LabStage.POPULATION, label: '05 Population Inversion' },
     { id: LabStage.CAVITY, label: '06 The Optical Cavity' },
-    { id: LabStage.PRACTICE, label: '07 Numerical Practice' },
-    { id: LabStage.VIVA, label: '08 Final Evaluation' },
+    { id: LabStage.BIT_STREAM, label: '07 Optical Comms' },
+    { id: LabStage.PRACTICE, label: '08 Numerical Practice' },
+    { id: LabStage.VIVA, label: '09 Final Evaluation' },
   ];
 
   const renderStage = () => {
@@ -38,7 +40,8 @@ const App: React.FC = () => {
       case LabStage.ATOMIC_STATES: return <AtomicStage onNext={() => setCurrentStage(LabStage.INTERACTIONS)} />;
       case LabStage.INTERACTIONS: return <InteractionStage onNext={() => setCurrentStage(LabStage.POPULATION)} />;
       case LabStage.POPULATION: return <PopulationStage onNext={() => setCurrentStage(LabStage.CAVITY)} />;
-      case LabStage.CAVITY: return <CavityStage onNext={() => setCurrentStage(LabStage.PRACTICE)} />;
+      case LabStage.CAVITY: return <CavityStage onNext={() => setCurrentStage(LabStage.BIT_STREAM)} />;
+      case LabStage.BIT_STREAM: return <BitStreamLab onNext={() => setCurrentStage(LabStage.PRACTICE)} />;
       case LabStage.PRACTICE: return <PracticeStage onNext={() => setCurrentStage(LabStage.VIVA)} />;
       case LabStage.VIVA: return <VivaStage onRestart={() => setCurrentStage(LabStage.INTRODUCTION)} />;
       default: return <IntroStage onNext={() => setCurrentStage(LabStage.THEORY)} />;

@@ -28,7 +28,7 @@ const PracticeStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
       <header className="flex justify-between items-start border-b border-zinc-900 pb-8 relative overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent" />
         <div className="space-y-2">
-          <h2 className="text-4xl font-black text-white uppercase tracking-tighter">Experiment 07: Numerical Analysis</h2>
+          <h2 className="text-4xl font-black text-white uppercase tracking-tighter">Experiment 08: Numerical Analysis</h2>
           <p className="text-zinc-500 text-[10px] font-bold uppercase tracking-[0.4em]">Quantifying Laser Conditions via First-Principles</p>
         </div>
       </header>

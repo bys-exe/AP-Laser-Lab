@@ -7,6 +7,7 @@ export enum LabStage {
   POPULATION = 'POPULATION',
   CAVITY = 'CAVITY',
   PRACTICE = 'PRACTICE',
+  BIT_STREAM = 'BITSTREAM',
   VIVA = 'VIVA'
 }
 

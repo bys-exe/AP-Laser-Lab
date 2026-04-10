@@ -80,7 +80,7 @@ const VivaStage: React.FC<{ onRestart: () => void }> = ({ onRestart }) => {
     <div className="space-y-16 font-mono py-10">
       <div className="space-y-6">
         <div className="inline-block px-4 py-1 bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-[10px] font-black uppercase tracking-[0.5em]">
-          Stage 08: Viva Voce
+          Stage 09: Viva Voce
         </div>
         <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-none text-white">
           Knowledge <br />
