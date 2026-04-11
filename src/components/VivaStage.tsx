@@ -157,7 +157,7 @@ const VivaStage: React.FC<{ onRestart: () => void }> = ({ onRestart }) => {
           </div>
           <h2 className="text-4xl md:text-7xl font-black uppercase tracking-tighter leading-none text-[var(--text-main)]">
             Final <br />
-            <span className="text-cyan-500 italic drop-shadow-[0_0_30px_rgba(6,182,212,0.3)]">Score: {score}/{questions.length}</span>
+            <span className="text-cyan-500 italic">Score: {score}/{questions.length}</span>
           </h2>
         </motion.div>
 
@@ -190,7 +190,7 @@ const VivaStage: React.FC<{ onRestart: () => void }> = ({ onRestart }) => {
       {/* Header */}
       <div className="text-center space-y-3 md:space-y-4">
         <div className="inline-block px-4 py-1 bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-[8px] md:text-[10px] font-black uppercase tracking-[0.5em]">
-          Stage 09: Quiz
+          Experiment 07: Final Evaluation
         </div>
         <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tighter leading-none text-[var(--text-main)]">
           Knowledge <span className="text-cyan-500 italic">Verification</span>
@@ -205,7 +205,7 @@ const VivaStage: React.FC<{ onRestart: () => void }> = ({ onRestart }) => {
         </div>
         <div className="w-full h-1 bg-lab-bg border border-lab-border rounded-full overflow-hidden">
           <motion.div 
-            className="h-full bg-cyan-500 shadow-[0_0_10px_#06b6d4]"
+            className="h-full bg-cyan-500"
             initial={{ width: 0 }}
             animate={{ width: `${progress}%` }}
           />

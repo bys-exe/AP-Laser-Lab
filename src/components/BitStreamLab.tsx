@@ -63,9 +63,34 @@ const BitStreamLab: React.FC<{ onNext: () => void }> = ({ onNext }) => {
   return (
     <div className="space-y-8 md:space-y-12 font-mono">
       <header className="space-y-2 border-b border-lab-border pb-6 md:pb-8">
-        <h2 className="text-2xl md:text-4xl font-black text-[var(--text-main)] uppercase tracking-tighter">Experiment 07: Bit-Stream Transmission</h2>
+        <h2 className="text-2xl md:text-4xl font-black text-[var(--text-main)] uppercase tracking-tighter">Experiment 05: Optical Comms</h2>
         <p className="text-[var(--text-muted)] text-[8px] md:text-[10px] font-bold uppercase tracking-[0.4em]">Optical Communications & Intersymbol Interference (ISI)</p>
       </header>
+
+      <div className="bg-lab-surface p-6 md:p-10 border border-lab-border space-y-6 md:space-y-8 shadow-2xl relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 rounded-full" />
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 relative z-10">
+          <div className="space-y-4 md:space-y-6">
+            <h4 className="text-[9px] md:text-[10px] font-black uppercase text-cyan-500 tracking-[0.3em] flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-cyan-500" />
+              Theoretical Background
+            </h4>
+            <p className="text-xs md:text-sm text-[var(--text-muted)] leading-relaxed font-medium tracking-tight">
+              Lasers transmit data via high-speed modulation. Information is encoded into a bit-stream of light pulses. However, as pulses travel, they spread out (disperse). If they spread too much, they overlap with adjacent pulses, causing <span className="text-[var(--text-main)]">Intersymbol Interference (ISI)</span>.
+            </p>
+          </div>
+          <div className="space-y-4 md:space-y-6">
+            <h4 className="text-[9px] md:text-[10px] font-black uppercase text-[var(--text-muted)] tracking-[0.3em] flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-lab-border" />
+              Experiment Aim & Procedure
+            </h4>
+            <p className="text-xs md:text-sm text-[var(--text-muted)] font-medium tracking-tight">
+              <span className="text-[var(--text-main)]">Aim:</span> To explore the principles of optical data transmission and the impact of pulse width on signal fidelity. <br/>
+              <span className="text-[var(--text-main)]">Procedure:</span> Enter a message and adjust the pulse width. Transmit the data and observe the received signal. Lower the pulse width to see how dispersion causes bit errors.
+            </p>
+          </div>
+        </div>
+      </div>
 
       <div className="grid lg:grid-cols-12 gap-8 md:gap-10">
         {/* Simulation Area */}

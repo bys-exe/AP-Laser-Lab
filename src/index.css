@@ -24,6 +24,9 @@
   --lab-border: #3a494b;
   --text-main: #ffffff;
   --text-muted: #71717a; /* zinc-400 */
+  --lab-inner-shadow: inset 0 0 100px rgba(0,0,0,0.8);
+  --lab-inner-shadow-subtle: inset 0 0 20px rgba(0,0,0,0.6);
+  --lab-card-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
 
 .light {
@@ -34,6 +37,9 @@
   --lab-border: #cbd5e1; /* Slate 300 - defined border */
   --text-main: #1e293b; /* Slate 800 */
   --text-muted: #475569; /* Slate 600 */
+  --lab-inner-shadow: inset 0 0 80px rgba(0,0,0,0.03);
+  --lab-inner-shadow-subtle: inset 0 0 10px rgba(0,0,0,0.02);
+  --lab-card-shadow: 0 0 20px rgba(0,0,0,0.1);
 }
 
 /* Global theme overrides for common Tailwind classes */
@@ -58,6 +64,10 @@
 .light .text-zinc-600, 
 .light .text-zinc-700 {
   color: var(--text-muted) !important;
+}
+
+html, body {
+  scroll-behavior: auto !important;
 }
 
 body {

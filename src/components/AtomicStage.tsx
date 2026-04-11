@@ -22,7 +22,7 @@ const AtomicStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
         }
         return e;
       }));
-    }, 1500);
+    }, 3000);
     return () => clearInterval(timer);
   }, [levelType]);
 
@@ -37,12 +37,12 @@ const AtomicStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
   return (
     <div className="animate-stage space-y-8 md:space-y-12 font-mono">
       <header className="space-y-2 border-b border-lab-border pb-6 md:pb-8 relative overflow-hidden">
-        <h2 className="text-2xl md:text-4xl font-black text-[var(--text-main)] uppercase tracking-tighter">Experiment 03: Energy Systems</h2>
+        <h2 className="text-2xl md:text-4xl font-black text-[var(--text-main)] uppercase tracking-tighter">Experiment 01: Energy Systems</h2>
         <p className="text-[var(--text-muted)] text-[8px] md:text-[10px] font-bold uppercase tracking-[0.4em]">Analysis of Energy States & Metastable Conditions</p>
       </header>
 
       <div className="bg-lab-surface p-6 md:p-10 border border-lab-border space-y-6 md:space-y-8 shadow-2xl relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 blur-3xl rounded-full" />
+        <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 rounded-full" />
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 relative z-10">
           <div className="space-y-4 md:space-y-6">
             <h4 className="text-[9px] md:text-[10px] font-black uppercase text-cyan-500 tracking-[0.3em] flex items-center gap-2">
@@ -106,7 +106,7 @@ const AtomicStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
                        cy={y} 
                        r="5" 
                        fill={lvlIdx === 0 ? "#06b6d4" : "#f43f5e"} 
-                       className="drop-shadow-[0_0_8px_rgba(6,182,212,0.3)]"
+                       
                        layout
                        transition={{ type: "spring", stiffness: 100, damping: 20 }}
                      />
@@ -122,16 +122,16 @@ const AtomicStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
               <div className="absolute top-0 left-0 w-1 h-full bg-cyan-500/20" />
               <h4 className="text-[9px] md:text-[10px] font-black uppercase text-[var(--text-muted)] tracking-[0.3em] border-b border-lab-border pb-4">Technical Matrix</h4>
               <div className="space-y-4 md:space-y-6">
-                 <div className="p-4 md:p-6 bg-lab-bg border border-lab-border space-y-2 shadow-inner relative group">
-                    <div className="absolute inset-0 bg-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
+                 <div className="p-4 md:p-6 bg-lab-bg border border-lab-border space-y-2 shadow-[var(--lab-inner-shadow-subtle)] relative group">
+                    <div className="absolute inset-0 bg-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                     <p className="text-[8px] md:text-[9px] text-[var(--text-muted)] uppercase font-black tracking-widest relative z-10">Inversion State</p>
                     <p className="text-xs md:text-sm font-black text-cyan-500 uppercase tracking-tighter relative z-10">{matrix[levelType].inversion}</p>
                  </div>
-                 <div className="p-4 md:p-6 bg-lab-bg border border-lab-border space-y-2 shadow-inner relative group">
+                 <div className="p-4 md:p-6 bg-lab-bg border border-lab-border space-y-2 shadow-[var(--lab-inner-shadow-subtle)] relative group">
                     <p className="text-[8px] md:text-[9px] text-[var(--text-muted)] uppercase font-black tracking-widest relative z-10">Pumping Power</p>
                     <p className="text-xs md:text-sm font-black text-[var(--text-muted)] uppercase tracking-tighter relative z-10">{matrix[levelType].pump}</p>
                  </div>
-                 <div className="p-4 md:p-6 bg-lab-bg border border-lab-border space-y-2 shadow-inner relative group">
+                 <div className="p-4 md:p-6 bg-lab-bg border border-lab-border space-y-2 shadow-[var(--lab-inner-shadow-subtle)] relative group">
                     <p className="text-[8px] md:text-[9px] text-[var(--text-muted)] uppercase font-black tracking-widest relative z-10">Efficiency Rating</p>
                     <p className="text-2xl md:text-3xl font-black text-[var(--text-main)] tracking-tighter relative z-10">{matrix[levelType].eff}</p>
                  </div>

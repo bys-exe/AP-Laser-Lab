@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Activity, 
@@ -29,13 +29,28 @@ import VivaStage from './components/VivaStage.tsx';
 const App: React.FC = () => {
   const [currentStage, setCurrentStage] = useState<LabStage>(LabStage.INTRODUCTION);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [currentTime, setCurrentTime] = useState(new Date());
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const mainRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
-    return () => clearInterval(timer);
-  }, []);
+    const scrollToTop = () => {
+      if (mainRef.current) {
+        mainRef.current.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      }
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      // Fallbacks for various browsers and configurations
+      document.documentElement.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      document.body.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    };
+
+    // Immediate scroll
+    scrollToTop();
+    
+    // Multiple delayed scrolls to handle potential layout shifts and React's render cycle
+    const timers = [0, 50, 150, 300, 500].map(delay => setTimeout(scrollToTop, delay));
+    
+    return () => timers.forEach(clearTimeout);
+  }, [currentStage]);
 
   useEffect(() => {
     if (theme === 'light') {
@@ -46,15 +61,15 @@ const App: React.FC = () => {
   }, [theme]);
 
   const stages = [
-    { id: LabStage.INTRODUCTION, label: '01 Virtual Lab', icon: LayoutDashboard },
-    { id: LabStage.THEORY, label: '02 Theoretical Foundations', icon: Microscope },
-    { id: LabStage.ATOMIC_STATES, label: '03 Energy Systems', icon: Zap },
-    { id: LabStage.INTERACTIONS, label: '04 Einstein Processes', icon: Layers },
-    { id: LabStage.POPULATION, label: '05 Population Inversion', icon: Activity },
-    { id: LabStage.CAVITY, label: '06 The Optical Cavity', icon: Cpu },
-    { id: LabStage.BIT_STREAM, label: '07 Optical Comms', icon: Database },
-    { id: LabStage.PRACTICE, label: '08 Numerical Practice', icon: Microscope },
-    { id: LabStage.VIVA, label: '09 Final Evaluation', icon: Activity },
+    { id: LabStage.INTRODUCTION, label: 'Virtual Lab', icon: LayoutDashboard },
+    { id: LabStage.THEORY, label: 'Theoretical Foundations', icon: Microscope },
+    { id: LabStage.ATOMIC_STATES, label: '01 Energy Systems', icon: Zap },
+    { id: LabStage.INTERACTIONS, label: '02 Einstein Processes', icon: Layers },
+    { id: LabStage.POPULATION, label: '03 Population Inversion', icon: Activity },
+    { id: LabStage.CAVITY, label: '04 The Optical Cavity', icon: Cpu },
+    { id: LabStage.BIT_STREAM, label: '05 Optical Comms', icon: Database },
+    { id: LabStage.PRACTICE, label: '06 Numerical Practice', icon: Microscope },
+    { id: LabStage.VIVA, label: '07 Final Evaluation', icon: Activity },
   ];
 
   const renderStage = () => {
@@ -76,31 +91,23 @@ const App: React.FC = () => {
     <div className="min-h-screen bg-lab-bg flex font-sans selection:bg-lab-primary selection:text-black overflow-hidden">
       
       {/* Sidebar Overlay */}
-      <AnimatePresence>
-        {isSidebarOpen && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setIsSidebarOpen(false)}
-            className="fixed inset-0 bg-black/40 backdrop-blur-[2px] z-40"
-          />
-        )}
-      </AnimatePresence>
+      <div 
+        onClick={() => setIsSidebarOpen(false)}
+        className={`fixed inset-0 bg-black/40 z-40 transition-opacity duration-200 ${isSidebarOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+      />
 
       {/* Sidebar */}
-      <motion.aside 
-        initial={false}
-        animate={{ x: isSidebarOpen ? 0 : -256 }}
-        transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-        className="fixed top-0 left-0 h-full w-64 border-r border-lab-border bg-lab-bg flex flex-col z-50 shadow-2xl"
+      <aside 
+        style={{ 
+          transform: isSidebarOpen ? 'translateX(0)' : 'translateX(-100%)',
+          transition: 'transform 0.2s ease-out',
+          willChange: 'transform'
+        }}
+        className="fixed top-0 left-0 h-full w-64 border-r border-lab-border bg-lab-bg flex flex-col z-50 shadow-lg"
       >
         <div className="p-8 border-b border-lab-border flex flex-col gap-1">
           <div className="text-lab-primary font-black text-sm tracking-tighter">VIRTUAL_LAB_OS</div>
           <div className="text-[10px] text-[var(--text-muted)] font-bold uppercase tracking-widest">SECTOR_07</div>
-          <div className="text-[10px] font-mono text-[var(--text-muted)] tracking-widest uppercase mt-2">
-            {currentTime.toLocaleTimeString([], { hour12: false })}
-          </div>
         </div>
 
         <nav className="flex-1 overflow-y-auto py-6">
@@ -132,15 +139,17 @@ const App: React.FC = () => {
             <p className="text-[10px] font-bold text-lab-primary">99.98%</p>
           </div>
         </div>
-      </motion.aside>
+      </aside>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto bg-lab-bg relative">
+      <main ref={mainRef} className="flex-1 overflow-y-auto bg-lab-bg relative" style={{ scrollBehavior: 'auto' }}>
         {/* Toggle Sidebar Button */}
-        <motion.button 
-          initial={false}
-          animate={{ left: isSidebarOpen ? 256 + 16 : 16 }}
-          transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+        <button 
+          style={{ 
+            left: isSidebarOpen ? '272px' : '16px',
+            transition: 'left 0.2s ease-out',
+            willChange: 'left'
+          }}
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           className="fixed top-6 md:top-10 z-[60] p-3 md:p-4 border border-lab-border bg-lab-bg hover:border-lab-primary transition-colors group"
         >
@@ -149,7 +158,7 @@ const App: React.FC = () => {
             <span className={`w-full h-px bg-[var(--text-main)] group-hover:bg-lab-primary block transition-all duration-300 ${isSidebarOpen ? 'opacity-0' : ''}`} />
             <span className={`w-full h-px bg-[var(--text-main)] group-hover:bg-lab-primary block transition-all duration-300 ${isSidebarOpen ? '-rotate-45 -translate-y-[9px]' : ''}`} />
           </div>
-        </motion.button>
+        </button>
 
         <div className="max-w-7xl mx-auto p-6 md:p-20 lg:p-32 pt-24 md:pt-40">
           {/* Theme Toggle Button */}

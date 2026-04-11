@@ -43,23 +43,48 @@ const CavityStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
     <div className="space-y-8 md:space-y-12 pb-20 font-mono">
       <header className="flex flex-col md:flex-row justify-between items-start border-b border-lab-border pb-6 md:pb-8 relative overflow-hidden">
         <div className="space-y-2">
-          <h2 className="text-2xl md:text-4xl font-black text-[var(--text-main)] tracking-tighter uppercase">Stage 06: The Optical Cavity</h2>
+          <h2 className="text-2xl md:text-4xl font-black text-[var(--text-main)] tracking-tighter uppercase">Experiment 04: The Optical Cavity</h2>
           <p className="text-[var(--text-muted)] text-[8px] md:text-[10px] font-bold uppercase tracking-[0.4em]">Resonance, Feedback, & Lasing Threshold Dynamics</p>
         </div>
       </header>
 
+      <div className="bg-lab-surface p-6 md:p-10 border border-lab-border space-y-6 md:space-y-8 shadow-2xl relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 rounded-full" />
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 relative z-10">
+          <div className="space-y-4 md:space-y-6">
+            <h4 className="text-[9px] md:text-[10px] font-black uppercase text-cyan-500 tracking-[0.3em] flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-cyan-500" />
+              Theoretical Background
+            </h4>
+            <p className="text-xs md:text-sm text-[var(--text-muted)] leading-relaxed font-medium tracking-tight">
+              The optical resonator mirrors provide <span className="text-[var(--text-main)] font-bold">feedback</span> by reflecting photons back into the gain medium. This increases the distance light travels, allowing for massive amplification. At the 'threshold', the gain precisely matches internal and mirror losses.
+            </p>
+          </div>
+          <div className="space-y-4 md:space-y-6">
+            <h4 className="text-[9px] md:text-[10px] font-black uppercase text-[var(--text-muted)] tracking-[0.3em] flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-lab-border" />
+              Experiment Aim & Procedure
+            </h4>
+            <p className="text-xs md:text-sm text-[var(--text-muted)] font-medium tracking-tight">
+              <span className="text-[var(--text-main)]">Aim:</span> To study the effect of optical feedback and gain on the lasing threshold. <br/>
+              <span className="text-[var(--text-main)]">Procedure:</span> Adjust the Optical Gain and Mirror Reflectivity. Observe the transition from scattered spontaneous emission to a coherent laser beam when the threshold condition is met.
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* Optical Cavity Box Animation */}
-      <div className="relative h-[350px] md:h-[480px] w-full flex items-center justify-center bg-lab-bg border border-lab-border shadow-[inset_0_0_100px_rgba(0,0,0,0.1)] dark:shadow-[inset_0_0_100px_rgba(0,0,0,0.8)] overflow-hidden group">
+      <div className="relative h-[350px] md:h-[480px] w-full flex items-center justify-center bg-lab-bg border border-lab-border shadow-[var(--lab-inner-shadow)] overflow-hidden group">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(6,182,212,0.02),transparent_70%)]" />
         
         {/* Mirror Labels */}
         <div className="absolute left-4 md:left-10 top-1/2 -translate-y-1/2 rotate-180 flex flex-col items-center gap-2 md:gap-4" style={{ writingMode: 'vertical-rl' }}>
            <span className="text-[var(--text-muted)] font-black text-[7px] md:text-[9px] uppercase tracking-[0.5em]">100% Mirror (Full)</span>
-           <div className="w-1.5 md:w-2 h-24 md:h-40 bg-lab-surface border border-lab-border shadow-[0_0_20px_rgba(0,0,0,0.2)] dark:shadow-[0_0_20px_rgba(0,0,0,0.5)]"></div>
+           <div className="w-1.5 md:w-2 h-24 md:h-40 bg-lab-surface border border-lab-border shadow-[var(--lab-card-shadow)]"></div>
         </div>
         <div className="absolute right-4 md:right-10 top-1/2 -translate-y-1/2 flex flex-col items-center gap-2 md:gap-4" style={{ writingMode: 'vertical-rl' }}>
            <span className="text-cyan-500 font-black text-[7px] md:text-[9px] uppercase tracking-[0.5em]">Output Coupler (Partial)</span>
-           <div className="w-1.5 md:w-2 h-24 md:h-40 bg-cyan-500 shadow-[0_0_30px_rgba(6,182,212,0.3)]"></div>
+           <div className="w-1.5 md:w-2 h-24 md:h-40 bg-cyan-500"></div>
         </div>
 
         {/* The Cavity Rectangle */}
@@ -67,29 +92,29 @@ const CavityStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
           
           {/* Internal Glow when lasing */}
           <motion.div 
-            className="absolute inset-0 bg-cyan-500/10 blur-3xl pointer-events-none"
+            className="absolute inset-0 bg-cyan-500/5 pointer-events-none"
             animate={{ opacity: isLasing ? 1 : 0 }}
           />
           
           {/* Multiple Fast Moving Laser Lines */}
           {isLasing ? (
             <div className="absolute inset-0 z-20">
-              {[...Array(8)].map((_, i) => (
+              {[...Array(4)].map((_, i) => (
                 <WavePacket 
                   key={i}
                   animate={{ x: [-150, 600] }}
                   transition={{ 
                     duration: 0.4 + Math.random() * 0.2, 
                     repeat: Infinity, 
-                    delay: i * 0.05,
+                    delay: i * 0.1,
                     ease: "linear"
                   }}
                   className="absolute"
-                  style={{ top: `${10 + i * 11}%` }}
+                  style={{ top: `${20 + i * 20}%` }}
                 />
               ))}
               {/* Main Core Beam Trail */}
-              <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[2px] bg-cyan-500/30 blur-sm"></div>
+              <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[2px] bg-cyan-500/30"></div>
             </div>
           ) : (
             /* Slow, scattered seed photons when below threshold */
@@ -106,7 +131,7 @@ const CavityStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
           {isLasing && (
              <div className="absolute right-0 h-10 md:h-12 flex items-center translate-x-full z-30">
                 <motion.div 
-                  className="h-1 bg-cyan-500 shadow-[0_0_60px_#06b6d4] w-[200px] md:w-[400px]"
+                  className="h-1 bg-cyan-500 w-[200px] md:w-[400px]"
                   animate={{ opacity: [0.8, 1, 0.8] }}
                   transition={{ duration: 0.1, repeat: Infinity }}
                 />
@@ -123,7 +148,7 @@ const CavityStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
                <span className="text-[7px] md:text-[9px] font-black text-[var(--text-muted)] uppercase tracking-[0.4em] italic text-center">Gain &lt; Cavity Loss</span>
              ) : (
                <motion.span 
-                className="text-[8px] md:text-[10px] font-black text-[var(--text-main)] uppercase tracking-[0.5em] md:tracking-[1em] drop-shadow-lg text-center"
+                className="text-[8px] md:text-[10px] font-black text-[var(--text-main)] uppercase tracking-[0.5em] md:tracking-[1em] text-center"
                 animate={{ opacity: [0.5, 1, 0.5] }}
                 transition={{ duration: 2, repeat: Infinity }}
                >
@@ -184,7 +209,7 @@ const CavityStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
         </div>
 
         <div className="bg-lab-surface p-6 md:p-10 border border-lab-border space-y-6 md:space-y-8 flex flex-col justify-center shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 blur-3xl rounded-full" />
+          <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 rounded-full" />
           <h3 className="text-[10px] md:text-xs font-black text-cyan-400 uppercase tracking-[0.3em] flex items-center gap-3">
             <span className="w-2 h-2 bg-cyan-500" />
             Theory: Optical Feedback Mechanism
@@ -192,8 +217,8 @@ const CavityStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
           <p className="text-xs md:text-sm text-[var(--text-muted)] leading-relaxed font-medium tracking-tight">
             The optical resonator mirrors provide <span className="text-[var(--text-main)] font-bold">feedback</span> by reflecting photons back into the gain medium multiple times. This increases the distance light travels through the medium, allowing for massive amplification. At the 'threshold', the gain precisely matches internal and mirror losses, resulting in a stable output beam.
           </p>
-          <div className="p-4 md:p-6 bg-lab-bg border border-lab-border shadow-inner relative group">
-             <div className="absolute inset-0 bg-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
+          <div className="p-4 md:p-6 bg-lab-bg border border-lab-border shadow-[var(--lab-inner-shadow-subtle)] relative group">
+             <div className="absolute inset-0 bg-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
              <div className="flex justify-between items-center relative z-10">
                 <span className="text-[8px] md:text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest">Resonator Status</span>
                 <span className={`text-[9px] md:text-[10px] font-black uppercase tracking-widest text-right ${isLasing ? 'text-cyan-400' : 'text-[var(--text-muted)]'}`}>

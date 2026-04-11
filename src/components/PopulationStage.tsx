@@ -16,7 +16,7 @@ const PopulationStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
         const updated = [...prev, { n1, n2 }];
         return updated.slice(-50);
       });
-    }, 150);
+    }, 300);
     return () => clearInterval(interval);
   }, [n1, n2]);
 
@@ -32,25 +32,39 @@ const PopulationStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
     <div className="space-y-8 md:space-y-12 pb-20 font-mono">
       <header className="flex flex-col md:flex-row justify-between items-start border-b border-lab-border pb-6 md:pb-8 relative overflow-hidden">
         <div className="space-y-2">
-          <h2 className="text-2xl md:text-4xl font-black text-[var(--text-main)] uppercase tracking-tighter">Experiment 05: Population Inversion</h2>
+          <h2 className="text-2xl md:text-4xl font-black text-[var(--text-main)] uppercase tracking-tighter">Experiment 03: Population Inversion</h2>
           <p className="text-[var(--text-muted)] text-[8px] md:text-[10px] font-bold uppercase tracking-[0.4em]">Achieving Non-Equilibrium via Optical Pumping</p>
         </div>
       </header>
 
-      <div className="bg-lab-surface p-6 md:p-10 border border-lab-border space-y-6 md:space-y-8 shadow-2xl relative overflow-hidden group">
-        <div className="absolute top-0 left-0 w-1 h-full bg-cyan-500/20" />
-        <h3 className="text-lg md:text-xl font-black text-[var(--text-main)] uppercase tracking-tighter flex items-center gap-3">
-          <span className="w-2 h-2 bg-cyan-500" />
-          The Science of Population Inversion
-        </h3>
-        <p className="text-xs md:text-sm text-[var(--text-muted)] leading-relaxed font-medium tracking-tight max-w-3xl">
-          Naturally, atoms reside in the Ground State (N₁) following the <span className="text-[var(--text-main)]">Boltzmann Distribution</span>. At thermal equilibrium, the population of excited states is almost zero. For a laser to work, we must forcefully 'reverse' this natural order using <span className="text-[var(--text-main)] font-bold">Pumping</span>. When N₂ &gt; N₁, we achieve 'Population Inversion', where stimulated emission finally becomes more likely than absorption, allowing light to be amplified.
-        </p>
+      <div className="bg-lab-surface p-6 md:p-10 border border-lab-border space-y-6 md:space-y-8 shadow-2xl relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 rounded-full" />
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 relative z-10">
+          <div className="space-y-4 md:space-y-6">
+            <h4 className="text-[9px] md:text-[10px] font-black uppercase text-cyan-500 tracking-[0.3em] flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-cyan-500" />
+              Theoretical Background
+            </h4>
+            <p className="text-xs md:text-sm text-[var(--text-muted)] leading-relaxed font-medium tracking-tight">
+              Naturally, atoms reside in the Ground State (N₁) following the <span className="text-[var(--text-main)]">Boltzmann Distribution</span>. For a laser to work, we must forcefully 'reverse' this order using <span className="text-[var(--text-main)] font-bold">Pumping</span>. When N₂ &gt; N₁, we achieve 'Population Inversion', where stimulated emission becomes more likely than absorption.
+            </p>
+          </div>
+          <div className="space-y-4 md:space-y-6">
+            <h4 className="text-[9px] md:text-[10px] font-black uppercase text-[var(--text-muted)] tracking-[0.3em] flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-lab-border" />
+              Experiment Aim & Procedure
+            </h4>
+            <p className="text-xs md:text-sm text-[var(--text-muted)] font-medium tracking-tight">
+              <span className="text-[var(--text-main)]">Aim:</span> To demonstrate the concept of population inversion and identify the threshold pumping intensity. <br/>
+              <span className="text-[var(--text-main)]">Procedure:</span> Gradually increase the pumping intensity using the slider. Monitor the population of N₁ and N₂. Identify the point where N₂ &gt; N₁ (Population Inversion).
+            </p>
+          </div>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-10">
         <div className="lg:col-span-6 space-y-6 md:space-y-8">
-           <div className="bg-lab-surface p-6 md:p-10 border border-lab-border flex flex-col justify-between min-h-[450px] md:h-[520px] shadow-2xl relative overflow-hidden">
+           <div className="bg-lab-surface p-6 md:p-10 border border-lab-border flex flex-col justify-between min-h-[450px] md:min-h-[520px] shadow-2xl relative overflow-hidden">
              <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(6,182,212,0.02),transparent_70%)]" />
              
              <div className="space-y-6 md:space-y-8 relative z-10">
@@ -77,7 +91,7 @@ const PopulationStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
 
              <div className="flex gap-8 md:gap-16 items-end justify-center h-40 md:h-56 px-4 md:px-10 relative z-10 my-8">
                 <div className="flex flex-col items-center gap-4 md:gap-6 flex-1 h-full">
-                  <div className="w-full bg-lab-bg relative overflow-hidden h-full border border-lab-border shadow-inner">
+                  <div className="w-full bg-lab-bg relative overflow-hidden h-full border border-lab-border shadow-[var(--lab-inner-shadow-subtle)]">
                     <motion.div 
                       className="absolute bottom-0 w-full bg-lab-border" 
                       animate={{ height: `${n1}%` }}
@@ -87,9 +101,9 @@ const PopulationStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
                   <span className="text-[8px] md:text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest">Ground (N₁)</span>
                 </div>
                 <div className="flex flex-col items-center gap-4 md:gap-6 flex-1 h-full">
-                  <div className="w-full bg-lab-bg relative overflow-hidden h-full border border-lab-border shadow-inner">
+                  <div className="w-full bg-lab-bg relative overflow-hidden h-full border border-lab-border shadow-[var(--lab-inner-shadow-subtle)]">
                     <motion.div 
-                      className={`absolute bottom-0 w-full bg-cyan-500 ${isInverted ? 'shadow-[0_0_40px_rgba(6,182,212,0.4)]' : ''}`} 
+                      className={`absolute bottom-0 w-full bg-cyan-500`} 
                       animate={{ height: `${n2}%` }}
                       transition={{ type: "spring", stiffness: 50 }}
                     />
@@ -98,7 +112,7 @@ const PopulationStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
                 </div>
              </div>
 
-             <div className={`p-4 md:p-6 border flex items-center justify-center gap-4 transition-all relative z-10 overflow-hidden ${isInverted ? 'bg-cyan-500/10 text-cyan-400 border-cyan-500/30 shadow-[0_0_30px_rgba(6,182,212,0.1)]' : 'bg-lab-bg text-[var(--text-muted)] border-lab-border'}`}>
+             <div className={`p-4 md:p-6 border flex items-center justify-center gap-4 transition-all relative z-10 overflow-hidden ${isInverted ? 'bg-cyan-500/10 text-cyan-400 border-cyan-500/30' : 'bg-lab-bg text-[var(--text-muted)] border-lab-border'}`}>
                 {isInverted && <motion.div className="w-2 h-2 rounded-full bg-cyan-400" animate={{ scale: [1, 1.5, 1] }} transition={{ repeat: Infinity, duration: 1 }} />}
                 <span className="text-[8px] md:text-[10px] font-black uppercase tracking-[0.2em] text-center">
                   {isInverted ? 'Inversion Achieved: System Gain > 0' : 'Thermal Distribution: No Inversion'}
@@ -108,7 +122,7 @@ const PopulationStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
         </div>
 
         <div className="lg:col-span-6 space-y-6 md:space-y-8">
-           <div className="bg-lab-surface p-6 md:p-10 border border-lab-border min-h-[450px] md:h-[520px] shadow-2xl relative overflow-hidden">
+           <div className="bg-lab-surface p-6 md:p-10 border border-lab-border min-h-[450px] md:min-h-[520px] shadow-2xl relative overflow-y-auto">
               <div className="absolute top-0 right-0 p-4 opacity-5">
                 <svg width="40" height="40" viewBox="0 0 40 40">
                   <path d="M 0 0 L 40 40 M 40 0 L 0 40" stroke="currentColor" strokeWidth="1" className="text-[var(--text-main)]" />
@@ -116,13 +130,13 @@ const PopulationStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
               </div>
               <h4 className="text-[8px] md:text-[9px] font-black uppercase text-[var(--text-muted)] mb-6 md:mb-10 tracking-[0.3em]">Transient Population Map (N vs t)</h4>
               
-              <div className="h-[200px] md:h-[280px] w-full bg-lab-bg border border-lab-border p-4 md:p-8 relative overflow-hidden flex flex-col shadow-inner">
+              <div className="h-[200px] md:h-[280px] w-full bg-lab-bg border border-lab-border p-4 md:p-8 relative overflow-hidden flex flex-col shadow-[var(--lab-inner-shadow-subtle)]">
                 <div className="absolute inset-0 grid grid-cols-4 grid-rows-4 opacity-5 pointer-events-none">
                   {[...Array(16)].map((_, i) => <div key={i} className="border border-[var(--text-main)]" />)}
                 </div>
                 <svg width="100%" height="100%" viewBox="0 0 300 150" preserveAspectRatio="none" className="relative z-10">
                   <path d={generateLinePath(history.map(h => h.n1))} fill="none" stroke="var(--lab-border)" strokeWidth="1.5" />
-                  <path d={generateLinePath(history.map(h => h.n2))} fill="none" stroke="#06b6d4" strokeWidth="3" className="drop-shadow-[0_0_8px_rgba(6,182,212,0.4)]" />
+                  <path d={generateLinePath(history.map(h => h.n2))} fill="none" stroke="#06b6d4" strokeWidth="3" />
                   <line x1="0" y1="75" x2="300" y2="75" stroke="var(--lab-border)" strokeDasharray="4 2" />
                 </svg>
                 <div className="flex justify-between items-center mt-4 md:mt-6 relative z-10">
@@ -131,14 +145,14 @@ const PopulationStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
                     <span className="text-[7px] md:text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest">N₁ (Ground)</span>
                   </div>
                   <div className="flex items-center gap-2 md:gap-3">
-                    <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-cyan-500 rounded-full shadow-[0_0_10px_#06b6d4]" />
+                    <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-cyan-500 rounded-full" />
                     <span className="text-[7px] md:text-[9px] font-black text-[var(--text-muted)] uppercase tracking-widest">N₂ (Excited)</span>
                   </div>
                 </div>
               </div>
 
-              <div className="mt-6 md:mt-8 p-6 md:p-8 bg-lab-bg border border-lab-border shadow-inner relative group">
-                 <div className="absolute inset-0 bg-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity blur-xl" />
+              <div className="mt-6 md:mt-8 p-6 md:p-8 bg-lab-bg border border-lab-border shadow-[var(--lab-inner-shadow-subtle)] relative group">
+                 <div className="absolute inset-0 bg-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                  <h4 className="text-[9px] md:text-[10px] font-black uppercase text-[var(--text-muted)] mb-3 md:mb-4 tracking-[0.3em] relative z-10">Lab Analysis</h4>
                  <p className="text-xs md:text-sm text-[var(--text-muted)] leading-relaxed font-medium tracking-tight relative z-10">
                    Notice how the excited population N₂ grows as you increase pump intensity. The intersection point marks the <span className="text-[var(--text-main)]">threshold</span> where laser action begins. Below this intersection, the system acts as a standard lamp.

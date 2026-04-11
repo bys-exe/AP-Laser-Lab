@@ -26,13 +26,6 @@ const WavePacket: React.FC<{
           <stop offset="50%" stopColor={color} stopOpacity="1" />
           <stop offset="100%" stopColor={color} stopOpacity="0" />
         </linearGradient>
-        <filter id="glow">
-          <feGaussianBlur stdDeviation="2" result="coloredBlur" />
-          <feMerge>
-            <feMergeNode in="coloredBlur" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
       </defs>
       <path 
         d={path} 
@@ -40,8 +33,7 @@ const WavePacket: React.FC<{
         stroke="url(#waveGradient)" 
         strokeWidth="3" 
         strokeLinecap="round"
-        filter="url(#glow)"
-        className="drop-shadow-[0_0_8px_rgba(250,204,21,0.5)]"
+        className="opacity-80"
       />
     </motion.svg>
   );
@@ -96,10 +88,39 @@ const InteractionStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
     <div className="space-y-8 pb-20 font-mono">
       <header className="flex flex-col md:flex-row justify-between items-start border-b border-lab-border pb-6 relative overflow-hidden">
         <div className="space-y-1">
-          <h2 className="text-2xl md:text-4xl font-black text-[var(--text-main)] uppercase tracking-tighter">Experiment 04: Einstein Processes</h2>
+          <h2 className="text-2xl md:text-4xl font-black text-[var(--text-main)] uppercase tracking-tighter">Experiment 02: Einstein Processes</h2>
           <p className="text-[var(--text-muted)] text-[8px] md:text-[10px] font-bold uppercase tracking-[0.4em]">Quantum Interaction Dynamics & Transition Probabilities</p>
         </div>
       </header>
+
+      <div className="bg-lab-surface p-6 md:p-10 border border-lab-border space-y-6 md:space-y-8 shadow-2xl relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 rounded-full" />
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 relative z-10">
+          <div className="space-y-4 md:space-y-6">
+            <h4 className="text-[9px] md:text-[10px] font-black uppercase text-cyan-500 tracking-[0.3em] flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-cyan-500" />
+              Theoretical Background
+            </h4>
+            <p className="text-xs md:text-sm text-[var(--text-muted)] leading-relaxed font-medium tracking-tight">
+              Einstein's theory of radiation describes three ways light interacts with atoms. 
+              <span className="text-[var(--text-main)]">Absorption</span> consumes energy, while 
+              <span className="text-[var(--text-main)]">Spontaneous Emission</span> releases it randomly. 
+              The most critical for lasers is <span className="text-[var(--text-main)]">Stimulated Emission</span>, 
+              where a photon triggers the release of an identical twin.
+            </p>
+          </div>
+          <div className="space-y-4 md:space-y-6">
+            <h4 className="text-[9px] md:text-[10px] font-black uppercase text-[var(--text-muted)] tracking-[0.3em] flex items-center gap-2">
+              <span className="w-1.5 h-1.5 bg-lab-border" />
+              Experiment Aim & Procedure
+            </h4>
+            <p className="text-xs md:text-sm text-[var(--text-muted)] font-medium tracking-tight">
+              <span className="text-[var(--text-main)]">Aim:</span> To visualize and differentiate between the three Einstein processes. <br/>
+              <span className="text-[var(--text-main)]">Procedure:</span> Select a process from the control panel. Observe how photons interact with the atom in each case. Adjust the radiation density to see its effect on transition probability.
+            </p>
+          </div>
+        </div>
+      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-10">
         <div className="lg:col-span-7 space-y-6 md:space-y-8">
@@ -129,17 +150,15 @@ const InteractionStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
           </div>
 
           {/* Visualization Panel */}
-          <div className="bg-lab-surface border border-lab-border h-[300px] md:h-[450px] relative overflow-hidden shadow-[inset_0_0_100px_rgba(0,0,0,0.1)] dark:shadow-[inset_0_0_100px_rgba(0,0,0,0.8)] group">
+          <div className="bg-lab-surface border border-lab-border h-[300px] md:h-[450px] relative overflow-hidden shadow-[var(--lab-inner-shadow)] group">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(6,182,212,0.05),transparent_70%)]" />
             
             {/* Glassy Energy Levels */}
             <div className="absolute inset-0 pointer-events-none">
               <div className="absolute top-[30%] left-6 md:left-12 right-6 md:right-12 h-px bg-lab-border">
-                <div className="absolute inset-0 bg-cyan-500/20 blur-md" />
                 <div className="absolute -top-5 md:-top-6 left-0 text-[8px] md:text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest">Excited Level (E₂)</div>
               </div>
               <div className="absolute top-[70%] left-6 md:left-12 right-6 md:right-12 h-px bg-lab-border">
-                <div className="absolute inset-0 bg-cyan-500/10 blur-sm" />
                 <div className="absolute top-3 md:top-4 left-0 text-[8px] md:text-[10px] font-black text-[var(--text-muted)] uppercase tracking-widest">Ground Level (E₁)</div>
               </div>
             </div>
@@ -166,7 +185,7 @@ const InteractionStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
                     />
                     {/* Electron */}
                     <motion.div 
-                      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 bg-pink-500 rounded-full shadow-[0_0_20px_#ec4899]"
+                      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 bg-pink-500 rounded-full"
                       initial={{ y: 90 }}
                       animate={{ 
                         scale: [1, 1, 1.8, 1, 1],
@@ -186,7 +205,7 @@ const InteractionStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
                   <div className="relative w-full h-full">
                     {/* Electron */}
                     <motion.div 
-                      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 bg-pink-500 rounded-full shadow-[0_0_20px_#ec4899]"
+                      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 bg-pink-500 rounded-full"
                       initial={{ y: -90 }}
                       animate={{ 
                         y: [-90, -90, 90, 90],
@@ -236,7 +255,7 @@ const InteractionStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
                     />
                     {/* Electron */}
                     <motion.div 
-                      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 bg-pink-500 rounded-full shadow-[0_0_20px_#ec4899]"
+                      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 bg-pink-500 rounded-full"
                       initial={{ y: -90 }}
                       animate={{ 
                         y: [-90, -90, 90, 90],
@@ -289,7 +308,7 @@ const InteractionStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
             <div className="absolute top-0 left-0 w-1 h-full bg-cyan-500/50" />
             <div className="relative z-10 space-y-4">
               <h3 className="text-lg md:text-xl font-black text-cyan-400 uppercase tracking-tighter flex items-center gap-3">
-                <span className="w-2 h-2 bg-cyan-500 animate-pulse" />
+                <span className="w-2 h-2 bg-cyan-500" />
                 {processInfo[active].title}
               </h3>
               <p className="text-xs md:text-sm text-[var(--text-muted)] leading-relaxed font-medium tracking-tight max-w-2xl">
@@ -352,9 +371,8 @@ const InteractionStage: React.FC<{ onNext: () => void }> = ({ onNext }) => {
                         stroke="url(#graphGradient)" 
                         strokeWidth="3" 
                         animate={{ d: "M 0 100 L 300 " + (100 - (density * 0.9)) }}
-                        className="drop-shadow-[0_0_10px_rgba(6,182,212,0.5)]"
                       />
-                      <circle cx="300" cy={100 - (density * 0.9)} r="4" fill="#06b6d4" className="animate-pulse" />
+                      <circle cx="300" cy={100 - (density * 0.9)} r="4" fill="#06b6d4" />
                    </svg>
                 </div>
                 <div className="flex justify-between text-[7px] md:text-[8px] text-[var(--text-muted)] font-black uppercase tracking-widest">

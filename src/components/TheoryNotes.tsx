@@ -11,42 +11,42 @@ const TheoryNotes: React.FC<{ onNext: () => void; onSelectStage: (stage: LabStag
   const labModules = [
     {
       icon: Zap,
-      title: '03 Energy Systems',
+      title: '01 Energy Systems',
       desc: 'Atoms exist in discrete energy levels. Transitions between these levels involve the absorption or emission of photons with energy E = hν.',
       formula: 'E_2 - E_1 = h\\nu',
       stage: LabStage.ATOMIC_STATES
     },
     {
       icon: Layers,
-      title: '04 Einstein Processes',
+      title: '02 Einstein Processes',
       desc: 'Three fundamental interactions: Absorption, Spontaneous Emission, and Stimulated Emission. The latter is key to laser action.',
       formula: 'R_{stim} = B_{21} \\cdot \\rho(\\nu) \\cdot N_2',
       stage: LabStage.INTERACTIONS
     },
     {
       icon: Activity,
-      title: '05 Population Inversion',
+      title: '03 Population Inversion',
       desc: 'To achieve gain, more atoms must be in the excited state (N2) than the ground state (N1). This requires external pumping.',
       formula: 'N_2 > N_1',
       stage: LabStage.POPULATION
     },
     {
       icon: Cpu,
-      title: '06 Optical Cavity',
+      title: '04 Optical Cavity',
       desc: 'A resonator provides feedback. Light is amplified as it bounces between mirrors, creating a coherent beam.',
       formula: 'G \\cdot R_1 \\cdot R_2 \\ge 1',
       stage: LabStage.CAVITY
     },
     {
       icon: Database,
-      title: '07 Optical Comms',
+      title: '05 Optical Comms',
       desc: 'Lasers transmit data via high-speed modulation. Information is encoded into a bit-stream of light pulses.',
       formula: 'f_{mod} \\propto \\frac{1}{\\tau_{pulse}}',
       stage: LabStage.BIT_STREAM
     },
     {
       icon: Target,
-      title: '08 Numerical Analysis',
+      title: '06 Numerical Analysis',
       desc: 'Quantitative evaluation of laser performance, including threshold current, slope efficiency, and beam quality.',
       formula: '\\eta = \\frac{P_{out}}{P_{in} - P_{th}}',
       stage: LabStage.PRACTICE
@@ -79,7 +79,6 @@ const TheoryNotes: React.FC<{ onNext: () => void; onSelectStage: (stage: LabStag
           >
             <div className="flex justify-between items-start">
               <module.icon className="w-5 h-5 md:w-6 md:h-6 text-lab-primary" />
-              <div className="text-[7px] md:text-[8px] font-black text-[var(--text-muted)] uppercase tracking-widest">MODULE_REF: {module.title.split(' ')[0]}</div>
             </div>
             
             <div className="space-y-3 md:space-y-4">
