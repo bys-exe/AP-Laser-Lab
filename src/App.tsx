@@ -103,7 +103,7 @@ const App: React.FC = () => {
           transition: 'transform 0.2s ease-out',
           willChange: 'transform'
         }}
-        className="fixed top-0 left-0 h-full w-64 border-r border-lab-border bg-lab-bg flex flex-col z-50 shadow-lg"
+        className="fixed top-0 left-0 h-full w-80 border-r border-lab-border bg-lab-bg flex flex-col z-50 shadow-lg"
       >
         <div className="p-8 border-b border-lab-border flex flex-col gap-1">
           <div className="text-lab-primary font-black text-sm tracking-tighter">VIRTUAL_LAB_OS</div>
@@ -121,7 +121,7 @@ const App: React.FC = () => {
                 setCurrentStage(s.id);
                 setIsSidebarOpen(false);
               }}
-              className={`w-full flex items-center gap-4 px-8 py-4 text-[10px] font-bold uppercase tracking-widest transition-all border-l-2 ${
+              className={`w-full flex items-center gap-4 px-8 py-4 text-[10px] font-bold uppercase tracking-widest transition-all border-l-2 whitespace-nowrap ${
                 currentStage === s.id 
                 ? 'bg-lab-surface text-lab-primary border-lab-primary' 
                 : 'text-[var(--text-muted)] hover:text-[var(--text-main)] border-transparent'
@@ -146,7 +146,7 @@ const App: React.FC = () => {
         {/* Toggle Sidebar Button */}
         <button 
           style={{ 
-            left: isSidebarOpen ? '272px' : '16px',
+            left: isSidebarOpen ? '336px' : '16px',
             transition: 'left 0.2s ease-out',
             willChange: 'left'
           }}
